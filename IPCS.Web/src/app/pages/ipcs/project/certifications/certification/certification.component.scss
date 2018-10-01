@@ -1,0 +1,16 @@
+@import "~scss/variables";
+@import "~scss/mixins";
+
+.inputline {
+	select {
+		width: 80px;
+    padding: 0 5px;
+	}
+}
+
+.requiredInfoLabel{
+  color: red;
+  font-size: 12px;
+  font-weight: bold;
+  padding-top: 4em;
+}

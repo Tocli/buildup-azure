@@ -1,0 +1,14 @@
+@import "~scss/variables";
+@import "~scss/mixins";
+
+.panel.panelDashboard{
+	.panel-heading{
+    font-weight: bold;
+  }
+  .panel-body{
+		.btn.btn-link{
+			width:100%;
+			text-align:center;
+		}
+	}
+}

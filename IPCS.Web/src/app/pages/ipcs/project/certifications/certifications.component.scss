@@ -1,0 +1,11 @@
+@import "~scss/variables";
+@import "~scss/mixins";
+
+.inputline {
+  select {
+    width: 80px;
+  }
+}
+    td{
+      white-space:nowrap;
+  }

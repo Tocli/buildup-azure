@@ -1,0 +1,422 @@
+<div class="fluid-container" style="margin-top: 60px" [hidden]="projectInformation === null" [ngBusy]="busy">
+  <div id="list-header">
+    <div class="container">
+      <app-project-detail-header [projectInformation]="projectInformation" [sectionName]="'Dashboard'"
+                                 [isNew]="false"></app-project-detail-header>
+      <div class="btns text-right" style="padding-top:0">
+        <div class="btn-group simpleline" dropdown>
+          <button type="button" class="btn drpd">Actions</button>
+          <button dropdownToggle type="button" class="btn dropdown-toggle">
+            <span class="caret"></span>
+            <span class="sr-only">Toggle Dropdown</span>
+          </button>
+          <ul *dropdownMenu class="dropdown-menu" role="menu">
+            <li role="menuitem"><a class="dropdown-item"
+                                   [routerLink]="['/build-up','project',projectInformation?.id]">Edit</a></li>
+            <li role="menuitem"><a class="dropdown-item"
+                                   [routerLink]="['/build-up','projects',projectInformation?.id,'dailyreport']">Daily
+              Report</a></li>
+            <li role="menuitem"><a class="dropdown-item" [routerLink]="['/build-up','projects',projectInformation?.id,'changeorder']">Change Orders</a></li>
+            <li role="menuitem"><a class="dropdown-item" [routerLink]="['/build-up', 'projects',projectInformation?.id,'certifications']">Certifications</a></li>
+
+          </ul>
+        </div>
+        <button class="btn editpr btn-primary" (click)="printReport()">Export Pdf</button>
+
+      </div>
+      <app-pages-title [pageTitle]="'Dashboard'"></app-pages-title>
+    </div>
+  </div>
+  <div class="content container-fluid" #rowSumary>
+    <div class="row">
+      <div class="container">
+        <div class="col-md-2">
+          <div class="piechart">
+            <div id="chartGauge" [style.width.%]="150" [style.height.px]="150"></div>
+          </div>
+        </div>
+        <div class="col-md-4 mt--40">
+          <div class="piechart">
+          </div>
+          <div class="bnumber">
+            <span class="bnumber"> {{certifiedPercentVsRevisedCostToDate | number: '1.2-2'}}%</span>
+            <span
+              class="estimation">Total Certified to Date: {{currencySymbol}} {{certifiedAcumToDate | number: '1.2-2'}} </span>
+            <span class="estimation">Revised Cost to Date: {{currencySymbol}} {{revisedCostToDate | number: '1.2-2'}} </span>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="bdate">
+            {{ revisedProjectEndDate | date: 'MM/dd/y'}}
+            <span class="bdate">Expected Project End Date</span>
+          </div>
+        </div>
+        <div class="col-md-3 statusFlags">
+          <ul class="flags">
+            <li class="flag circle"
+                [ngClass]="{'fsuccess': !projectOrdersCostStatus,'fdanger': projectOrdersCostStatus}">
+              Cost
+            </li>
+            <li class="flag circle"
+                [ngClass]="{'fsuccess': !projectOrdersTimeStatus,'fdanger': projectOrdersTimeStatus}">
+              Schedule
+            </li>
+            <li class="flag circle {{projectRiskStatus}}">Risk</li>
+            <li class="flag circle {{projectSafetyStatus}}">Safety</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="linesimple">&nbsp;</div>
+    </div>
+  </div>
+  <div class="content container-fluid top50">
+    <div class="row" #rowCost>
+      <div class="container">
+        <div class="col-md-4">
+          <div class="lineblue">Cost Section</div>
+          <table class="listado">
+            <tr>
+              <td class="listlabel">Original Project Cost:</td>
+              <td> {{currencySymbol}} {{projectInformation?.originalCost | number: '1.2-2'}}</td>
+            </tr>
+            <tr>
+              <td class="listlabel">Total Change Order to Date:</td>
+              <td> {{currencySymbol}} {{acumAmoutn | number: '1.2-2'}}</td>
+            </tr>
+            <tr>
+              <td class="listlabel">Change Orders (%):</td>
+              <td> {{changeOrderPercent | number: '1.2-2'}} %</td>
+            </tr>
+            <tr>
+              <td class="listlabel">Revised Cost to Date:</td>
+              <td> {{currencySymbol}} {{revisedCost | number: '1.2-2'}}</td>
+            </tr>
+            <tr>
+              <td class="listlabel">Total Certified (expenses) to Date:</td>
+              <td> {{currencySymbol}} {{totalCertified | number: '1.2-2'}}</td>
+            </tr>
+            <tr>
+              <td class="listlabel">Total Retained Amount to Date:</td>
+              <td> {{currencySymbol}} {{retainedAmountAcum | number: '1.2-2'}}</td>
+            </tr>
+            <tr>
+              <td class="listlabel">Certified Percentage to Date:</td>
+              <td> {{certifiedPercent | number: '1.2-2'}} %</td>
+            </tr>
+            <tr>
+              <td class="listlabel">Total Paid to Date:</td>
+              <td> {{currencySymbol}} {{totalPaid | number: '1.2-2'}}</td>
+            </tr>
+          </table>
+        </div>
+        <div class="col-md-4" #rowCostAnalysis>
+          <div class="vgraphs">
+            <div class="lineblue">Cost Analysis</div>
+            <div class="bodi">
+              <div id="chartCostos" [style.width.%]="110" [style.height.px]="340"></div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <app-panel-issue [title]="'Cost'" [panelColor]="panelAffectCostColor" [issues]="issuesAffectingCost"></app-panel-issue>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="linesimple">&nbsp;</div>
+    </div>
+  </div>
+  <div class="content container-fluid top50">
+    <div class="row" #rowGraphicsBar>
+      <div class="container">
+        <div class="col-md-6">
+          <div class="lineblue">Certified to Date (%)</div>
+          <div class="bodi" #rowCertifiedPercent>
+            <div id="chartCertified" [style.width.%]="100" [style.height.px]="300"></div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="lineblue">Time Consumed (%)</div>
+          <div class="bodi" #rowTimeConsumed>
+            <div id="chartTime" [style.width.%]="100" [style.height.px]="300"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="linesimple">&nbsp;</div>
+    </div>
+  </div>
+  <div class="content container-fluid top50">
+    <div class="row" #rowSchedule>
+      <div class="container">
+        <div class="col-md-4">
+          <div class="lineblue">Schedule Section</div>
+          <table class="listado">
+            <tr>
+              <td class="listlabel">Original Contract Duration:</td>
+              <td> {{projectInformation?.contractDuration}}</td>
+            </tr>
+            <tr>
+              <td class="listlabel">Original Construction Duration:</td>
+              <td> {{projectInformation?.constructDuration}}</td>
+            </tr>
+            <tr>
+              <td class="listlabel">NTP Date:</td>
+              <td> {{projectInformation?.npd | date: 'MM/dd/y'}}</td>
+            </tr>
+            <tr>
+              <td class="listlabel">Original Project Start Date:</td>
+              <td> {{projectInformation?.opsd | date: 'MM/dd/y'}}</td>
+            </tr>
+            <tr>
+              <td class="listlabel">Revised Project Start Date:</td>
+              <td> {{projectInformation?.apsd | date: 'MM/dd/y'}}</td>
+            </tr>
+            <tr>
+              <td class="listlabel">Original Project End Date:</td>
+              <td> {{projectInformation?.endDate | date: 'MM/dd/y'}}</td>
+            </tr>
+            <tr>
+              <td class="listlabel">Revised Project End Date:</td>
+              <td>{{revisedProjectEndDate | date: 'MM/dd/y'}}</td>
+            </tr>
+            <tr>
+              <td class="listlabel">Time Extension Due to Change Orders:</td>
+              <td> {{acumTimeExtension}}</td>
+            </tr>
+            <tr>
+              <td class="listlabel">Original Substantial Completion Date:</td>
+              <td> {{projectInformation?.scd | date: 'MM/dd/y'}}</td>
+            </tr>
+            <tr>
+              <td class="listlabel">Revised Substantial Completion Date:</td>
+              <td> {{revisedSubstancialCompletionDate | date: 'MM/dd/y'}}</td>
+            </tr>
+            <tr>
+              <td class="listlabel">Days Consumed Since Project Start Date:</td>
+              <td> {{daysConsumed}}</td>
+            </tr>
+            <tr>
+              <td class="listlabel">Time (%) Consumed Since Project Start Date :</td>
+              <td> {{consumedSinceProjectStartDate | number: '1.2-2'}} %</td>
+            </tr>
+            <tr>
+              <td class="listlabel">Contract Time Extension Due To Change Orders:</td>
+              <td> {{acumTimeExtension}}</td>
+            </tr>
+            <tr>
+              <td class="listlabel">New Contract Duration:</td>
+              <td> {{newContractDurationInDays}}</td>
+            </tr>
+          </table>
+        </div>
+        <div class="col-md-4" >
+          <div class="vgraphs">
+            <div class="lineblue">Project Schedule</div>
+            <div class="col-md-12" #calendar>
+            <div class="bodi">
+              <app-calendar [isStart]="true" #startDateCalendar></app-calendar>
+              <app-calendar [isStart]="false" #endDateCalendar></app-calendar>
+            </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <app-panel-issue [title]="'Schedule'" [panelColor]="panelScheduleColor" [issues]="issuesAffectingSchedule"></app-panel-issue>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="linesimple">&nbsp;</div>
+    </div>
+  </div>
+  <div class="content container-fluid top50">
+    <div class="row">
+      <div class="container">
+        <div class="col-md-6">
+          <div class="lineblue">Pending Issues</div>
+          <div class="issue" *ngFor="let issue of pendingIssues">
+            <span>{{issue.createdAt | date: 'MM/dd/y'}} - {{issue.createdAt | date: 'jm'}}</span>
+            {{issue.description}}
+          </div>
+          <div class="issue" *ngIf="pendingIssues.length === 0">
+            <span>&nbsp;</span>
+            No pending issues
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="lineblue">Two Week Look Ahead</div>
+          <div class="issue" *ngFor="let issue of twoWeeksAhead">
+            <span>{{issue.createdAt | date: 'MM/dd/y'}} - {{issue.createdAt | date: 'jm'}}</span>
+            {{issue.description}}
+          </div>
+          <div class="issue" *ngIf="twoWeeksAhead.length === 0">
+            <span>&nbsp;</span>
+            No two week look ahead
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+  <div class="content container-fluid top50">
+    <div class="row">
+      <div class="container">
+        <br/>
+        <div class="col-md-12">
+          <div class="lineblue">Critical Path Activities</div>
+          <div class="tableTransform">
+            <table class="table table-striped table-ellipsis" style="text-align: left" >
+              <thead>
+              <tr>
+                <th>Critical Path Status</th>
+                <th>Activity Description</th>
+                <th>Original Start Date</th>
+                <th>Actual Start Date</th>
+                <th>Original End Date</th>
+                <th>Actual End Date</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr *ngFor="let issue of criticalPath">
+                <td *ngIf="issue.criticalPathActiviestOnSchedule"><span class="label label-warning right" style="background-color: #94B68B; color: #ffffff;width: 100px">On Schedule</span></td>
+                <td *ngIf="issue.criticalPathActiviestAheadOfSchedule"><span class="label label-warning right" style="background-color: #94B68B; color: #ffffff;width: 100px">Ahead of Schedule</span></td>
+                <td *ngIf="issue.criticalPathActiviestAtRisk"><span class="label label-warning right" style="color: #ffffff; width: 100px">At Risk</span></td>
+                <td *ngIf="issue.criticalPathActiviestBlank"><span class="label label-warning right" style="background-color: #FFFFFF;color: #ffffff;width: 100px;"></span></td>
+                <td *ngIf="issue.criticalPathActiviestDelayed"><span class="label label-warning right" style="background-color: #ff6347;color: #ffffff;width: 100px;">Delayed</span></td>
+                <td data-title="Activity description">{{issue.description}}</td>
+                <td data-title="Start Date">{{issue.createdAt | date: 'MM/dd/y'}}</td>
+                <td data-title="Actual Start Date">{{issue.actualStartDate | date: 'MM/dd/y'}}</td>
+                <td data-title="End Date">{{issue.endTime | date: 'MM/dd/y'}}</td>
+                <td data-title="Actual End Date">{{issue.actualEndDate | date: 'MM/dd/y'}}</td>
+              </tr>
+              </tbody>
+            </table>
+            <div class="issue" *ngIf="criticalPath.length === 0">
+              <span>&nbsp;</span>
+              No critical path activities
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="content container-fluid top50">
+    <div class="row">
+      <div class="container">
+
+        <div class="col-md-4">
+          <div class="lineblue">Project Visitors</div>
+          <div class="issue" *ngFor="let pv of projectVisitors">
+            <span>{{pv.createdAt | date: 'MM/dd/y'}} {{pv.createdAt | date: 'jm'}}</span>
+            {{pv.description}}
+          </div>
+          <div class="issue" *ngIf="projectVisitors.length === 0">
+            <span>&nbsp;</span>
+            No contact information
+          </div>
+        </div>
+
+        <div class="col-md-4">
+          <div class="lineblue">Administrative Activities</div>
+          <div class="issue" *ngFor="let adminAct of administrativeActivities">
+            <span>{{adminAct.createdAt | date: 'MM/dd/y'}} {{adminAct.createdAt | date: 'jm'}}</span>
+            {{adminAct.description}}
+          </div>
+          <div class="issue" *ngIf="administrativeActivities.length === 0">
+            <span>&nbsp;</span>
+            No administrative activities
+          </div>
+        </div>
+
+        <div class="col-md-4">
+          <div class="lineblue">Construction Activities</div>
+          <div class="issue" *ngFor="let contractInfo of constructionActivities">
+            <span>{{contractInfo.createdAt | date: 'MM/dd/y'}} {{contractInfo.createdAt | date: 'jm'}}</span>
+            {{contractInfo.description}}
+          </div>
+          <div class="issue" *ngIf="constructionActivities.length === 0">
+            <span>&nbsp;</span>
+            No construction activities
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="content container-fluid top50">
+    <div class="row">
+      <div class="container">
+        <div class="col-md-4">
+          <div class="lineblue">Contact Information</div>
+          <div class="issue" *ngFor="let contact of projectInformation?.projectContacts">
+            <span>{{contact.entity.name}}</span>
+            {{contact.contactPerson}} - {{contact.companyName}} ({{contact.tel}})
+          </div>
+          <div class="issue" *ngIf="projectInformation?.projectContacts.length === 0">
+            <span>&nbsp;</span>
+            No contact information
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="lineblue">Safety Issues</div>
+          <div class="issue" *ngFor="let issue of safetyIssues">
+                    <span>{{issue.createdAt | date: 'MM/dd/y'}} {{issue.createdAt | date: 'jm'}}
+                      <span class="label label-warning pull-right" [ngClass]="{'label-danger': issue.safetyId == 2}"
+                            style="color: #ffffff; width: 100px">{{issue.safetyIssue.name}}</span>
+                    </span>
+
+            {{issue.description}}
+          </div>
+          <div class="issue" *ngIf="safetyIssues.length === 0">
+            <span>&nbsp;</span>
+            No safety issues
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="lineblue">Weather</div>
+          <div class="issue" *ngFor="let issue of weatherIssues">
+                    <span>{{issue.createdAt | date: 'jm'}} => {{issue.endTime | date: 'jm'}}
+                    <span class="label label-warning pull-right" style="color: #ffffff; width: 100px">{{issue.weatherCondition.name}}</span>
+                    </span>
+            {{issue.description}}
+          </div>
+          <div class="issue" *ngIf="weatherIssues.length === 0">
+            <span>&nbsp;</span>
+            No weather issues
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="content container-fluid top50">
+    <div class="row">
+      <div class="container">
+        <div class="col-md-12">
+          <div [hidden]="!showMap" id="contact-map" style="height: 300px">
+            <agm-map #gm [latitude]="projectInformation?.coordinatesY"
+                     [longitude]="projectInformation?.coordinatesX" [zoom]="zoom">
+              <agm-marker [title]="projectInformation?.projectName"
+                          [latitude]="projectInformation?.coordinatesY"
+                          [longitude]="projectInformation?.coordinatesX">
+              </agm-marker>
+            </agm-map>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

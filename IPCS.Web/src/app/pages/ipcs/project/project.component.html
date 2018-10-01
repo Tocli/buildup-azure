@@ -1,0 +1,67 @@
+<div class="fluid-container" style="margin-top: 60px">
+  <div id="list-header">
+    <div class="container">
+      <app-project-detail-header [projectInformation]="projectSession.projectInfo" [isNew]="isNew" [sectionName]="'Information'"></app-project-detail-header>
+      <div class="btns text-right">
+        <!-- ACTIONS button -->
+        <div class="btn-group simpleline" dropdown *ngIf="!isNew">
+          <button type="button" class="btn drpd">Actions</button>
+          <button dropdownToggle type="button" class="btn dropdown-toggle">
+            <span class="caret"></span>
+            <span class="sr-only">Toggle Dropdown</span>
+          </button>
+          <ul tabindex="2" *dropdownMenu class="dropdown-menu" role="menu">
+            <li tabindex="2" role="menuitem"><a class="dropdown-item" [routerLink]="['/build-up','projects',projectSession.projectInfo.id,'dashboard']">Dashboard</a></li>
+            <li tabindex="2" role="menuitem"><a class="dropdown-item" [routerLink]="['/build-up','projects',projectSession.projectInfo.id,'dailyreport']">Daily Report</a></li>
+            <li tabindex="2" role="menuitem"><a class="dropdown-item" [routerLink]="['/build-up','projects',projectSession.projectInfo.id,'changeorder']">Change Orders</a></li>
+            <li tabindex="2" role="menuitem"><a class="dropdown-item" [routerLink]="['/build-up', 'projects',projectSession.projectInfo.id,'certifications']">Certifications</a></li>
+          </ul>
+        </div>
+        <app-pages-title [pageTitle]="'Project Information'"></app-pages-title>
+      </div>
+    </div>
+  </div>
+  <div tabindex="45" class="list-body">
+    <div *ngIf="isDesktop" class="container">
+      <div class="row">
+        <div id="bargrey"></div>
+        <div class="bartabsnav col-lg-12">
+          <tabset [justified]="true">
+            <tab heading="Information" [active]="true">
+              <app-information #information></app-information>
+            </tab>
+            <tab heading="Project Participants" [disabled]="!this.projectSession.projectInfo.id">
+              <app-participants tabindex="1"></app-participants>
+            </tab>
+            <!--tab heading="Insurance Polices" *ngIf="projectSession.projectInfo.id">
+
+            </tab>
+            <tab heading="Progress Schedule" *ngIf="projectSession.projectInfo.id">
+
+            </tab>
+            <tab heading="Studies, Endorsements & Permits" *ngIf="projectSession.projectInfo.id">
+
+            </tab-->
+          </tabset>
+        </div>
+
+        </div>
+      </div>
+    <div *ngIf="!isDesktop" class="container">
+      <div class="row">
+        <div class="bartabsnav col-lg-12 projectAccordion">
+          <accordion [closeOthers]="true">
+            <accordion-group heading="Information" [isOpen]="true">
+              <app-information #information></app-information>
+            </accordion-group>
+            <accordion-group heading="Participants" *ngIf="projectSession.projectInfo.id">
+              <app-participants></app-participants>
+            </accordion-group>
+          </accordion>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+

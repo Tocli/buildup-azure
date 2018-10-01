@@ -1,0 +1,75 @@
+<div [ngBusy]="busy">
+  <div class="container-fluid login" >
+    <div class="row">
+      <div class="col-md-7 image-building" style="background-image: url(/img/background-login.jpg)">
+      </div>
+      <div class="col-md-5 col-md-offset-7 baselogin">
+        <div class="intrologin row">
+          <div class="col-lg-12">
+            <img src="/img/download.png" alt="Build Up">
+          </div>
+        </div>
+
+        <form #loginForm="ngForm" (ngSubmit)="login(loginForm.valid)" class="loginform">
+          <div class="row">
+            <div class="col-lg-12">
+              <label>
+                <input #email="ngModel" type="email"
+                       [ngClass]="{'alertInput': !email.valid && (!email.pristine || loginForm.submitted)}"
+                       required [(ngModel)]="model.email" name="email"
+                       pattern="^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$"/>
+                <div class="label-text">Email</div>
+              </label>
+              <small class="alert alert-danger moreRight5" [hidden]="email.valid || (email.pristine && !loginForm.submitted)"
+                     name="email">
+                Valid Email is required
+              </small>
+              <label>
+                <input id="password" name="password" #password="ngModel" type="password" required
+                       [ngClass]="{'alertInput': !password.valid && (!password.pristine || loginForm.submitted)}"
+                       [ngModelOptions]="{standalone : true}"
+                       [(ngModel)]="model.password"/>
+                <div class="label-text">Password</div>
+              </label>
+              <small class="alert alert-danger moreRight5"
+                     *ngIf="(password.errors && password.errors.required) && (!password.pristine || loginForm.submitted)">
+                Password is required
+              </small>
+              <div class="options">
+                <input type="checkbox" id="remember" name="rememberme" [(ngModel)]="rememberMe">
+                <div class="pull-left labelrem">Remember me</div>
+                <div class="pull-right"><a routerLink="/forgotPassword" class="normaLink">Forgot Password?</a></div>
+              </div>
+
+            </div>
+          </div>
+          <div class="row" *ngIf="errorLogin">
+            <div class="col-lg-12">
+                <span class="alert-danger form-control">
+                  {{errorDescription}}
+                </span>
+            </div>
+          </div>
+          <div class="row" *ngIf="reactivateAccount">
+            <div class="col-lg-12">
+                <a routerLink="/reactivate-account" class="btn btn-success form-control">Reactivate the Account</a>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-lg-12">
+              <button type="submit" class="btn btn-primary form-control">Login</button>
+            </div>
+          </div>
+        </form>
+        <div class="createacc">
+          <a routerLink="/signup" class="whiteLink">Don't have an account?</a>
+        </div>
+        <div class="privacyTerms">
+          <a (click)="privacyTerm.show()" style="cursor: pointer" class="privacyTerms">Privacy & Terms</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<app-privacy-and-terms #privacyTerm></app-privacy-and-terms>

@@ -1,0 +1,429 @@
+@import "~scss/variables";
+@import "~scss/mixins";
+#custom-search-input{
+  @include media-max($break-sm){
+    margin-bottom: 15px;
+    width: 100%;
+    .input-group{
+      width:100%;
+      input{
+        width:100%;
+      }
+    }
+  }
+}
+#custom-search-input .input-group-btn{
+  bottom: 5px;
+}
+.informationContent {
+  padding-top: 15px;
+  padding-bottom: 15px;
+  .contentImage{
+    padding-bottom: 1%;
+    width:76px;
+    height:66px;
+    position: relative;
+    float: left;
+    overflow: hidden;
+    display: flex;
+    align-items:center;
+    justify-content: center;
+    img{
+      max-height: 100%;
+      max-width: 100%;
+    }
+  }
+}
+.inputline {
+  position: relative;
+  margin-top: 20px;
+  input {
+    height: 34px;
+    width: 100%;
+    &.alertInput{
+      border-color: red;
+      + select{
+        border-bottom-color: red;
+      }
+    }
+    &:active, &:focus{
+      border-color: $blue;
+    }
+  }
+  .input-group{
+    &.underline{
+      border-bottom: solid 1px $gray6;
+    }
+    &.select{
+      display: flex;
+      select{
+        width:20%;
+        padding: 0 5px;
+      }
+    }
+  }
+  select {
+    height: 24px;
+    width: 100%;
+    margin-top: 10px;
+    padding: 0 5px;
+  }
+  label {
+    font-size: 14px;
+    margin-bottom: 0;
+    font-weight: bold;
+    color: $gray1;
+  }
+  button {
+    background: none;
+    border: none;
+    padding: 0;
+    margin: 0;
+    outline: none;
+    color: $blue;
+    border-radius: 2px;
+    position: absolute;
+    right: 2px;
+    bottom: 3px;
+    width: 24px;
+    height: 24px;
+    @include transition(all 250ms ease);
+    &:hover{
+      background-color: $blue;
+      color: $white;
+    }
+    &.btns-top{
+      top: 0px;
+    }
+  }
+}
+.pagination > li > a, .pagination > li > span{
+  cursor: pointer;
+}
+/* DETAIL TABLES */
+.issueslists.panel-danger > .panel-heading {
+  background-color: $red;
+  border-color: $red;
+  background-image: none;
+  margin-bottom: 15px;
+  padding-left: 8px;
+  color: $white;
+  span {
+    margin-right: 10px;
+  }
+}
+.ngxmdp{
+  z-index:9000;
+  .selectorarrow{
+    right: 0 !important;
+    &:before{
+      right: 14px;
+      left:inherit !important;
+    }
+    &:after{
+      right: 15px;
+      left:inherit !important;
+    }
+  }
+  .ngxmdpicon, .daycell, .monthcell, .monthlabel, .yearcell, .yearlabel,
+  .headerbtn, .headermonthtxt, .headertodaybtn, .headeryeartxt, .yearchangebtn{
+    position: relative;
+  }
+  .headertodaybtn{
+    margin-top:5px;
+  }
+}
+/*Datepicker Component
+.datepicker-container{
+  display: block;
+  width: 100%;
+  .datepicker-input-container{
+    display: block;
+    width: 100%;
+    .datepicker-input{
+      width: 100% !important;
+      padding-right: 30px;
+      text-align: left !important;
+      border-bottom-color: $gray6 !important;
+      &:active, &:focus{
+        border-color: $blue !important;
+      }
+    }
+    .datepicker-input-icon{
+      position: absolute;
+      bottom: 10px;
+      right: 5px;
+      i g g{
+        fill: $blue !important;
+      }
+    }
+  }
+  .datepicker-calendar{
+    right: 0;
+    .datepicker-calendar-top{
+      height: 60px !important;
+      background-color: $blue !important;
+      position: relative;
+      &:before{
+        content: '';
+        height: 14px;
+        width: 14px;
+        background-color: $blue;
+        position: absolute;
+        transform: rotate(-45deg);
+        top: -6px;
+        right: 5px;
+      }
+      .year-title{
+        margin-top: 5px !important;
+        line-height: 1.2;
+      }
+    }
+    .datepicker-calendar-container{
+      background-color: $gray6 !important;
+      .datepicker-calendar-month-section{
+        color: $blue !important;
+        font-weight: bold;
+      }
+      .datepicker-calendar-days-container{
+        margin-bottom: 10px;
+        .day{
+          height: 24px !important;
+          color: $gray1 !important;
+          &:hover:not(.disabled){
+            background-color: rgba($white, 0.5) !important;
+            color: $blue !important;
+            border-color: $blue !important;
+            font-weight: bold;
+          }
+          &.selected{
+            background-color: $blue !important;
+            color: $white !important;
+            font-weight: bold;
+          }
+        }
+      }
+      .datepicker-buttons{
+        button{
+          position: relative;
+          @include font-size(12px);
+          padding: 0 10px !important;
+          line-height: 1;
+          &.u-is-primary{
+            background-color: $blue !important;
+            border-color: $blue !important;
+          }
+          &.u-is-secondary{
+            background-color: $red !important;
+            border-color: $red !important;
+            color: $white !important;
+          }
+        }
+      }
+    }
+  }
+}*/
+.panel.issueslists {
+  border: none;
+  border-radius: 0;
+  box-shadow: none;
+}
+input[type="file"]{
+  display: none;
+  + label{
+    border-bottom: solid 1px $gray6;
+    width:100%;
+    > div{
+      padding: 5px 7px;
+      overflow: hidden;
+      position: relative;
+      float: right;
+      color: $blue;
+      border-radius: 2px;
+      cursor: pointer;
+      @include transition(all 250ms ease);
+      &:hover{
+        background-color: $blue;
+        color: white;
+      }
+    }
+    > p{
+      position: relative;
+      float: left;
+      margin-top: 7px;
+      @include font-size(12px);
+    }
+    + img{
+      position:relative;
+      float: left;
+    }
+  }
+}
+.issueslists .panel-body {
+  padding: 0;
+}
+
+.issue {
+  padding-bottom: 8px;
+  border-bottom: 1px solid $gray6;
+  margin-bottom: 8px;
+  span {
+    color: $blueMedium;
+    width: 100%;
+    display: block;
+    font-size: 12px;
+  }
+}
+
+span.bnumber {
+  font-size: 70px; //Original 124
+  font-weight: bold;
+  line-height: 124px;
+    position: relative;
+    float: left;
+  @include media-max($break-lg){
+    width:100%;
+  }
+}
+  span{
+    &.estimation{
+      position: relative;
+      float: left;
+      width:100%;
+    }
+  }
+.bnumber {
+  display: block;
+  font-size: 22px;
+  font-weight: bold;
+  .estimation{
+    font-weight: bold;
+    font-size: large;
+  }
+}
+
+.bdate {
+  display: block;
+  text-align: left;
+  font-weight: bold;
+  font-size: 44px;
+  padding-top: 45px;
+}
+
+span.bdate {
+  padding-top: 0px;
+  font-size: 14px;
+}
+
+ul.flags {
+  list-style-type: none;
+  margin-top: 20px;
+  li {
+    position: relative;
+    &:before {
+      content: '';
+      width: 20px;
+      height: 20px;
+      background: $blueGray;
+      position: absolute;
+      left: -55px;
+      margin-top: 6px;
+      @include media-max($break-lg){
+        left: -22px;
+      }
+    }
+    &.falert:before {
+      background: $yellow;
+    }
+    &.fdanger:before {
+      background: $red2;
+    }
+    &.fsuccess:before {
+      background: $green;
+    }
+    line-height: 32px;
+  }
+}
+
+table.listado {
+  line-height: 38px;
+  color: $gray1;
+  text-align: right;
+  width: 100%;
+  .listlabel {
+    text-align: left;
+    white-space: inherit;
+    line-height: 1.2;
+  }
+  tr {
+    border-bottom: 1px solid $gray4;
+  }
+}
+
+.lineblue {
+  color: $blue;
+  font-size: 19px;
+  border-bottom: 2px solid;
+  padding-bottom: 8px;
+  margin-bottom: 20px;
+  font-weight: bold;
+  .date {
+    line-height: 16px;
+    font-weight: normal;
+    text-align: right;
+    padding-top: 10px;
+  }
+}
+
+#row-cinformation .table thead th {
+  font-size: 14px;
+  font-weight: bold;
+}
+
+/* DETAIL MODAL */
+
+.mlocation button.close {
+  position: absolute;
+  top: 5px;
+  right: 20px;
+}
+button.close{
+  span{
+    @include font-size(21px);
+  }
+}
+.modal .btns {
+  a, button {
+    width: 135px;
+    font-size: 13px;
+  }
+}
+
+.mlocation {
+  iframe {
+    border: 0;
+    min-height: 320px;
+  }
+}
+.btns .btn.btn-link {
+  margin-right: 30px;
+}
+
+.modal-crooper{
+  width: 430px;
+  max-width: 95%;
+  canvas{
+    max-width:100%;
+  }
+}
+
+.modal-crooper input{
+  display: block;
+}
+
+.requiredInfoLabel{
+  color: red;
+  font-size: 14px;
+  font-weight: bold;
+}
+

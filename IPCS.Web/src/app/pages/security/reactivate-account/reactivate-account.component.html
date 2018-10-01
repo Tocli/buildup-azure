@@ -1,0 +1,25 @@
+﻿<div [ngBusy]="busy" class="container-fluid login">
+  <div class="row">
+    <div class="col-md-7 image-building" style="background-image: url(/img/background-login.jpg)">
+    </div>
+    <div class="col-md-5 col-md-offset-7 baselogin">
+      <div class="intrologin row">
+        <div class="col-lg-12">
+          <img src="/img/download.png" alt="IPCS">
+        </div>
+        <p class="col-lg-12">Reactivate account</p>
+      </div>
+      <form class="loginform" #form="ngForm" ng-submit="reactivate(updateAccount)" NgIf="active" name="updateRegisterForm" novalidate>
+        <div class="row">
+          <div class="col-lg-12">
+            <label>
+              <input type="email" name="email" [(ngModel)]="reactivateAccountModel.email" required #email="ngModel">
+              <div class="label-text">Email</div>
+            </label>
+            <button type="submit" (click)="sendReactivateAccount(form.valid)" class="btn btn-primary form-control">Send new activation email</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

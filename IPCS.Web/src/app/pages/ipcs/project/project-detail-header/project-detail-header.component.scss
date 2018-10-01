@@ -1,0 +1,14 @@
+@import "~scss/variables";
+@import "~scss/mixins";
+
+.txts {
+  display: block;
+  float: left;
+  width:100%;
+  @supports (-ms-ime-align:auto){
+    display: block;
+  }
+  @media screen and (min-width:0\0){
+    display: block;
+  }
+}

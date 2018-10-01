@@ -1,0 +1,83 @@
+@import "~scss/variables";
+@import "~scss/mixins";
+.panel.panelDaily{
+  margin-bottom: 25px;
+  .panel-heading{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px;
+    .btn.btn-link{
+      padding: 5px;
+      line-height: 1;
+      &:active, &:focus, &:hover{
+        text-decoration: none;
+        outline: none;
+      }
+      .fa{
+        @include transition(all 250ms ease-in);
+        &.rotateIcon{
+          display: block;
+          transform: rotate(180deg);
+        }
+      }
+    }
+    h5{
+      width: 100%;
+      text-align: left;
+      font-weight: bold;
+      margin: 0 5px;
+    }
+  }
+  &.panel-primary{
+    border-color: $blue;
+    > .panel-heading{
+      border-top: solid 5px $blue;
+      background-color: rgba($blue,0.25);
+      h5, .btn{
+        color: $blue;
+      }
+    }
+  }
+  &.panel-warning{
+    border-color: $yellow;
+    > .panel-heading{
+      border-top: solid 5px $yellow;
+      background-color: rgba($yellow,0.25);
+      h5, .btn{
+        color: $yellow;
+      }
+    }
+  }
+  &.panel-danger{
+    border-color: $violet;
+    > .panel-heading{
+      border-top: solid 5px $violet;
+      background-color: rgba($violet,0.25);
+      h5, .btn{
+        color: $violet;
+      }
+    }
+  }
+  .panel-body{
+    padding: 0;
+    .list-item-panel{
+      padding: 7px 15px;
+      word-wrap: break-word;
+      border-bottom: solid 1px $gray6;
+      p{
+        margin: 0;
+      }
+    }
+    .btn.btn-link{
+      width:100%;
+      text-align: center;
+    }
+  }
+}
+
+.italFont{
+  font-family: Titillium Web, sans-serif;
+  font-style: italic;
+}
+

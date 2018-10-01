@@ -1,0 +1,50 @@
+@import "~scss/variables";
+@import "~scss/mixins";
+
+
+.table{
+  margin-top: 15px;
+  color: $gray1;
+  thead{
+    tr{
+      th {
+        @include font-size(14px);
+        font-weight: bold;
+        border-color: $gray6;
+      }
+    }
+  }
+  tbody{
+    tr{
+      td{
+        @include font-size(14px);
+        border-color: $gray6;
+        max-width: 20vw;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        @include media-max($break-md){
+          max-width: 100vw;
+        }
+        .btn.btn-link{
+          border: 0;
+          background: transparent;
+          @include font-size(16px);
+          color: $blue;
+          @include transition(all 250ms ease);
+          border-radius: 3px;
+          padding: 2px 5px;
+          @-moz-document url-prefix(){
+            position: relative;
+            float: left;
+          }
+          &:hover{
+            text-decoration: none;
+            background: $blue;
+            color: white;
+          }
+        }
+      }
+    }
+  }
+}

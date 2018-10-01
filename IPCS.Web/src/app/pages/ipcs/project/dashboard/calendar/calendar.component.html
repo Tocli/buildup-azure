@@ -1,0 +1,22 @@
+
+<div class="col-lg-1 durationLeft" *ngIf="show">
+  <span class="vertical" *ngIf="isStart">Start Date</span>
+  <span class="vertical" *ngIf="!isStart">End Date</span>
+</div>
+<div class="col-lg-11 durationRight" *ngIf="show">
+  <span class="col-lg-12 title">{{month}} {{year}}</span>
+  <table class="table calendar">
+    <thead>
+    <tr>
+      <th *ngFor="let day of weekDays">{{day}}</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let week of weeks">
+      <td class="{{day.clazz}}" *ngFor="let day of week.days">{{day.label}}</td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+
+

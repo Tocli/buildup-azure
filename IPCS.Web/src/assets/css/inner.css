@@ -1,0 +1,227 @@
+@charset "UTF-8";
+/* CSS Document
+.date {
+    color: #a9a7a7;
+    font-size: 13px;
+    display: block;
+}
+.txts {
+    display: grid;
+    float: left;
+}
+
+ul.bartabsnav.navtabs {
+    width: 100%;
+   	background: #eff4f7;
+    display: inline-flex;
+}
+#bargrey{
+    position: absolute;
+    width: 100%;
+    left: 0;
+    height: 45px;
+    background: #eff4f7;
+    z-index: -1;
+}
+.bartabsnav .nav-item {
+    width: 20%;
+    height: 45px;
+    text-align: center;
+    display: block;
+}
+.bartabsnav .nav-item.r-tabs-state-active{
+	background: #fff;
+}
+.bartabsnav .nav-link {
+    display: block;
+    padding: 10px;
+	color:#9B9B9B;
+    font-size: 14px;
+    height: 35px;
+    overflow: hidden;
+    text-decoration: none;
+}
+.bartabsnav .nav-link:hover {
+    text-decoration: none;
+}
+.bartabsnav .r-tabs-state-active a{
+    background-color: #fff;
+	border-left: 0;
+	border-right: 0;
+    border-top: 3px solid #459FF6;
+    color: inherit;
+    font-size: 15px;
+}
+
+.bartabsnav .nav-tabs .nav-link.active {
+	color:#459FF6;
+}
+.nav-tabs .nav-link:hover {
+    border-color: #eceeef #eceeef #ddd;
+}
+.inputline input, .inputline select {
+	height:34px;
+    width: 100%;
+}
+.inputline select {
+	margin-top:10px;
+}
+.inputline {
+    margin-top: 20px;
+}
+.inputline label{
+	font-size:14px;
+    margin-bottom: 0;
+    font-weight: normal;
+}
+.inputline button {
+    background: none;
+    border: none;
+    padding: 0;
+    margin: 0;
+	outline:none;
+    color: #0058A1;
+    position: absolute;
+    right: 0;
+}
+/* DETAIL TABLES
+#row-summary, #row-costs, #row-schedule, #row-notifications, #row-cinformation{
+	padding-top: 40px;
+	padding-bottom: 40px;
+	border-bottom:1px solid #9CB6BC;
+}
+.issueslists.panel-danger>.panel-heading {
+    background-color: #FF4536;
+    border-color: #FF4536;
+    margin-bottom: 15px;
+	padding-left: 8px;
+    color: #fff;
+}
+.issueslists.panel-danger>.panel-heading span{
+	margin-right: 10px;
+}
+.panel.issueslists {
+    border: none;
+    border-radius: 0;
+    box-shadow: none;
+}
+.issueslists .panel-body {
+    padding: 0;
+}
+.issue {
+    padding-bottom: 8px;
+    border-bottom: 1px solid #ccc;
+    margin-bottom: 8px;
+}
+.issue span {
+    color: #5084D3;
+    width: 100%;
+    display: block;
+    font-size: 12px;
+}
+span.bnumber {
+	font-size: 124px;
+    font-weight: bold;
+    line-height: 124px;
+}
+.bnumber {
+    display: grid;
+    font-size: 22px;
+    font-weight: bold;
+}
+.bdate {
+    display: block;
+    text-align: center;
+    font-weight: bold;
+	font-size: 44px;
+    padding-top: 45px;
+}
+span.bdate {
+    padding-top: 0px;
+    font-size: 14px;
+}
+ul.flags{
+	list-style-type: none;
+	margin-top:20px;
+}
+ul.flags li:before {
+    content: '';
+    width: 20px;
+    height: 20px;
+    background: #C5D7F2;
+    position: absolute;
+    left: 28px;
+    margin-top: 6px;
+}
+ul.flags li.falert:before {background: #F4AF39;}
+ul.flags li.fdanger:before {background: #FC5145;}
+ul.flags li {
+    line-height: 32px;
+}
+
+table.listado {
+    line-height: 38px;
+	color:#4A4A4A;
+	text-align: right;
+	width: 100%;
+}
+table.listado .listlabel{
+	text-align: left;
+}
+table.listado tr {
+    border-bottom: 1px solid #979797;
+}
+.lineblue {
+    color: #0058A1;
+    font-size: 19px;
+    border-bottom: 2px solid;
+    padding-bottom: 8px;
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+.lineblue .date {
+    line-height: 16px;
+    font-weight: normal;
+    text-align: right;
+    padding-top: 10px;
+}
+#row-cinformation .table thead th {
+    font-size: 14px;
+    font-weight: bold;
+}
+/* DETAIL TABLES
+
+#mlocation button.close{
+	position:absolute;
+	top:5px;
+	right:20px;
+}
+.modal .btns a, .modal .btns button{
+    width: 135px;
+    font-size: 13px;
+}
+#mlocation iframe{
+    border: 0;
+    min-height: 320px;
+}
+#mlocation .btns a {margin-right:30px;}
+.modal .btns{
+    float: right;
+    margin-top: 20px;
+}
+.modal h4 {
+    border-bottom: 1px solid;
+    padding-bottom: 11px;
+    color: #0058a1;
+    font-weight: bold;
+}
+@media (max-width:992px){
+	.bdate {
+    	display: block;
+    	text-align: left;
+    	font-weight: bold;
+    	font-size: 44px;
+    	padding-top: 15px;
+	}
+}
+*/

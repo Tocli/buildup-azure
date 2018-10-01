@@ -1,0 +1,132 @@
+<div class="panel panelDaily {{at.class}}" >
+  <div class="panel-heading">
+    <button type="button" class="btn btn-link" #btn (click)="isCollapsed = !isCollapsed"><span
+      class="fa fa-chevron-down" title="{{title}}" (click)="changeTitle()" [ngClass]="{'rotateIcon': isCollapsed}"></span></button>
+    <h5>{{at.name}}</h5>
+    <button class="btn btn-link" title="Add" (click)="add()">
+      <span class="fa fa-plus"></span>
+    </button>
+  </div>
+  <div class="panel-body collapse" [ngClass]="{'in show': !isCollapsed}">
+    <div *ngIf="at.subType === 1">
+      <div class="list-item-panel" *ngFor="let activity of projectActivities | slice:0:index">
+          <small  [ngClass]="{'italFont': activity.isDraft}">{{activity.createdAt | date:'EEE, MMM dd, y'}} {{activity.createdAt | date: 'jm'}}</small>
+          <small *ngIf="!activity.isDraft" class="pull-right"><button class="btn btn-xs btn-link" title="Delete" (click)="remove(activity)"><i class="fa fa-trash"></i></button></small>
+          <small *ngIf="!activity.isDraft" class="pull-right"><button class="btn btn-xs btn-link" title="Edit" (click)="edit(activity)"><i class="fa fa-pencil"></i></button></small>
+          <small *ngIf="activity.isDraft" class="pull-right"><input type="checkbox" title="Check to save draft" #saveDraftCheckBox (change)="onChangeCheckBoxState(activity, saveDraftCheckBox)"></small>
+          <p [ngClass]="{'italFont': activity.isDraft}" >{{activity.description}}</p>
+      </div>
+    </div>
+    <div *ngIf="at.subType === 2">
+      <div class="list-item-panel" *ngFor="let activity of projectActivities | slice:0:index">
+        <small [ngClass]="{'italFont': activity.isDraft}">{{activity.createdAt | date:'EEE, MMM dd, y'}} {{activity.createdAt | date: 'jm' : 'ISO'}}</small>
+        <small *ngIf="!activity.isDraft" class="pull-right"><button class="btn btn-xs btn-link" title="Delete" (click)="remove(activity)"><i class="fa fa-trash"></i></button></small>
+        <small *ngIf="!activity.isDraft" class="pull-right"><button class="btn btn-xs btn-link" title="Edit"  (click)="edit(activity)"><i class="fa fa-pencil"></i></button></small>
+        <small *ngIf="activity.isDraft" class="pull-right"><input type="checkbox" title="Check to save draft" #saveDraftCheckBox (change)="onChangeCheckBoxState(activity, saveDraftCheckBox)"></small>
+        <p [ngClass]="{'italFont': activity.isDraft}"><b>Risk</b> {{activity.description}}</p>
+        <p [ngClass]="{'italFont': activity.isDraft}"><b>Mitigation</b> {{activity.extraField}}</p>
+      </div>
+    </div>
+    <div *ngIf="at.subType === 3">
+      <div class="list-item-panel" *ngFor="let activity of projectActivities | slice:0:index">
+        <small>{{activity.createdAt | date: 'jm'}} => {{activity.createdAt | diffdates: activity.endTime}} => {{activity.endTime | date: 'jm'}}</small>
+        <small class="pull-right"><button class="btn btn-xs btn-link" title="Delete" (click)="remove(activity)"><i class="fa fa-trash"></i></button></small>
+        <small class="pull-right"><button class="btn btn-xs btn-link" title="Edit"  (click)="edit(activity)"><i class="fa fa-pencil"></i></button></small>
+        <p><b>Condition</b> {{activity.weatherCondition?.name}}</p>
+        <p>{{activity.description}}</p>
+      </div>
+    </div>
+    <div *ngIf="at.subType === 4">
+      <div class="list-item-panel" *ngFor="let activity of projectActivities | slice:0:index">
+        <small *ngIf="!activity.isDraft" class="pull-right"><button class="btn btn-xs btn-link" title="Delete" (click)="remove(activity)"><i class="fa fa-trash"></i></button></small>
+        <small *ngIf="!activity.isDraft" class="pull-right"><button class="btn btn-xs btn-link" title="Edit" (click)="edit(activity)"><i class="fa fa-pencil"></i></button></small>
+        <small [ngClass]="{'italFont': activity.isDraft}" *ngIf="activity.isDraft" class="pull-right"><input type="checkbox" title="Check to save draft" #saveDraftCheckBox (change)="onChangeCheckBoxState(activity, saveDraftCheckBox)"></small>
+        <small [ngClass]="{'italFont': activity.isDraft}" >{{activity.createdAt | date:'EEE, MMM dd, y'}} {{activity.createdAt | date: 'jm'}}</small>
+        <p [ngClass]="{'italFont': activity.isDraft}"><b>Type</b> {{activity.safetyIssue?.name}}</p>
+        <p [ngClass]="{'italFont': activity.isDraft}">{{activity.description}}</p>
+      </div>
+    </div>
+    <div *ngIf="at.subType === 5">
+      <div class="list-item-panel" *ngFor="let activity of projectActivities | slice:0:index">
+        <small class="pull-right"><button class="btn btn-xs btn-link" title="Delete" (click)="remove(activity)"><i class="fa fa-trash"></i></button></small>
+        <small class="pull-right"><button class="btn btn-xs btn-link" title="Edit" (click)="edit(activity)"><i class="fa fa-pencil"></i></button></small>
+        <p>
+          <small><b>Original Start Date</b> {{activity.createdAt | date:'EEE, MMM dd, y'}}</small>
+        </p>
+        <p>
+          <small><b>Original End Date</b> {{activity.endTime | date:'EEE, MMM dd, y'}}</small>
+        </p>
+        <p>
+          <small><b>Actual Start Date</b> {{activity.actualStartDate | date:'EEE, MMM dd, y'}}</small>
+        </p>
+        <p>
+          <small><b>Actual End Date</b> {{activity.actualEndDate |date:'EEE, MMM dd, y'}}</small>
+        </p>
+        <p>{{activity.description}}</p>
+      </div>
+    </div>
+
+    <app-activity-type-panel-footer [footerDescription]="at.description" *ngIf="projectActivities.length === 0"> </app-activity-type-panel-footer>
+
+    <button class="btn btn-link" (click)="viewAllClick()" *ngIf="projectActivities.length > tempIndex && viewAll === false" >View all items</button>
+    <button class="btn btn-link" (click)="viewAllClick()" *ngIf="projectActivities.length > tempIndex && viewAll">View less</button>
+  </div>
+</div>
+
+<div class="modal fade" bsModal #modalSubType1="bs-modal" >
+  <div class="contentModalScroll">
+    <div class="modal-dialog modal-md">
+      <div class="modal-content">
+        <app-sub-type1 #subType1 [at]="at" (hide)="modalSubType1.hide()" (saveProjectActivity)="save($event)" ></app-sub-type1>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" bsModal #modalSubType2="bs-modal">
+  <div class="contentModalScroll">
+    <div class="modal-dialog modal-md">
+      <div class="modal-content">
+        <app-sub-type2 #subType2 [at]="at" (hide)="modalSubType2.hide()" (saveProjectActivity)="save($event)"></app-sub-type2>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" bsModal #modalSubType3="bs-modal">
+  <div class="contentModalScroll">
+    <div class="modal-dialog modal-md">
+      <div class="modal-content">
+        <app-sub-type3 #subType3 [at]="at" (hide)="modalSubType3.hide()" (saveProjectActivity)="save($event)"></app-sub-type3>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" bsModal #modalSubType4="bs-modal">
+  <div class="contentModalScroll">
+    <div class="modal-dialog modal-md">
+      <div class="modal-content">
+        <app-sub-type4 #subType4 [at]="at" (hide)="modalSubType4.hide()" (saveProjectActivity)="save($event)"></app-sub-type4>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" bsModal #modalSubType5="bs-modal">
+  <div class="contentModalScroll">
+    <div class="modal-dialog modal-md">
+      <div class="modal-content">
+        <app-sub-type5 #subType5 [at]="at" (hide)="modalSubType5.hide()" (saveProjectActivity)="save($event)"></app-sub-type5>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  $("#modal").on("show", function () {
+    $("body").addClass("modal-open");
+  }).on("hidden", function () {
+    $("body").removeClass("modal-open")
+  });
+</script>

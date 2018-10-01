@@ -1,0 +1,120 @@
+﻿<div [ngBusy]="busy">
+  <div class="container-fluid login registry">
+    <div class="row">
+      <div class="col-md-7 image-building" style="background-image: url(/img/background-login.jpg)">
+      </div>
+      <div class="col-md-5 col-md-offset-7 baselogin">
+        <div class="intrologin row">
+          <div class="col-lg-12">
+            <img src="/img/download.png" alt="IPCS">
+          </div>
+          <p>Create your Build Up Account</p>
+        </div>
+        <form #signUpForm="ngForm" NgIf="active" name="accountRegisterForm" novalidate (ngSubmit)="addRegister(signUpForm.valid)"
+              class="loginform" [hidden]="!showForm">
+          <div class="row">
+            <div class="col-lg-12">
+              <label>
+                <input type="text" name="firstname" [(ngModel)]="newAccount.firstname"
+                       required minlength="2" maxlength="64"
+                       [ngClass]="{'alertInput': !firstname.valid && (!firstname.pristine || signUpForm.submitted)}"
+                        #firstname="ngModel" reverse="true">
+                <div class="label-text">First Name *</div>
+              </label>
+              <!--validation for firstname-->
+              <small class="alert alert-danger" [hidden]="firstname.valid || (firstname.pristine && !signUpForm.submitted)">
+                This is a required field
+              </small>
+
+              <label>
+                <input type="text" name="lastname" [(ngModel)]="newAccount.lastname" required
+                       [ngClass]="{'alertInput': !lastname.valid && (!lastname.pristine || signUpForm.submitted)}"
+                       minlength="2" maxlength="64"
+                        #lastname="ngModel" reverse="true">
+                <div class="label-text">Last Name *</div>
+              </label>
+              <!--validation for lastname-->
+              <small class="alert alert-danger" [hidden]="lastname.valid || (lastname.pristine && !signUpForm.submitted)">
+                This is a required field
+              </small>
+
+              <label>
+                <input type="tel" class="phone" name="phonenumber" [(ngModel)]="newAccount.phonenumber" required
+                       [ngClass]="{'alertInput': !phonenumber.valid && (!phonenumber.pristine || signUpForm.submitted)}"
+                       minlength="5" maxlength="64" class="phone" pattern="^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{1}[-\s\.]?[0-9]{1,63}$"
+                       #phonenumber="ngModel" reverse="true">
+                <div class="label-text">Phone *</div>
+              </label>
+              <!--validation for phonenumber-->
+              <small class="alert alert-danger" [hidden]="phonenumber.valid || (phonenumber.pristine && !signUpForm.submitted)">
+                Please enter a valid phone number
+              </small>
+              <label>
+                <input type="email" name="email" [(ngModel)]="newAccount.email" required
+                       [ngClass]="{'alertInput': !email.valid && (!email.pristine || signUpForm.submitted)}"
+                       #email="ngModel" reverse="true"
+                       maxlength="128" size="35" pattern="^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$">
+                <div class="label-text">Email *</div>
+              </label>
+              <small class="alert alert-danger" [hidden]="email.valid || (email.pristine && !signUpForm.submitted)">
+                Please enter a valid email address
+              </small>
+
+              <label>
+                <input type="email" name="reenteremail" [(ngModel)]="newAccount.reenteremail" required
+                       [ngClass]="{'alertInput': !reenteremail.valid && (!reenteremail.pristine || signUpForm.submitted)}"
+                       validateEqual="email" #reenteremail="ngModel" maxlength="128"
+                       pattern="^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$">
+                <div class="label-text">Re-enter email *</div>
+              </label>
+              <small class="alert alert-danger"
+                     [hidden]="reenteremail.valid || (reenteremail.pristine && !signUpForm.submitted)">
+                Emails do not match
+              </small>
+
+              <label>
+                <input type="password" name="password" [(ngModel)]="newAccount.password" required
+                       [ngClass]="{'alertInput': !password.valid && (!password.pristine || signUpForm.submitted)}"
+                       validateEqual="reenterpassword" #password="ngModel" maxlength="128" minlength="8" reverse="true"
+                       pattern="^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}$">
+                <div class="label-text">Password *</div>
+              </label>
+              <small class="alert alert-danger" [hidden]="password.valid || (password.pristine && !signUpForm.submitted)">
+                Password needs to have at least 8 characters, one number, lowercases and uppercases
+              </small>
+
+              <label>
+                <input type="password" name="reenterpassword" [(ngModel)]="newAccount.reenterpassword" maxlength="128" minlength="8"
+                       [ngClass]="{'alertInput': !reenterpassword.valid && (!reenterpassword.pristine || signUpForm.submitted)}"
+                       required validateEqual="password" #reenterpassword="ngModel" reverse="false"
+                       pattern="^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}$">
+                <div class="label-text">Re-enter password *</div>
+              </label>
+              <small class="alert alert-danger"
+                     [hidden]="reenterpassword.valid || (reenterpassword.pristine && !signUpForm.submitted)">
+                Passwords do not match
+              </small>
+            </div>
+          </div>
+
+          <button type="submit" class="btn btn-primary form-control">Create Account</button>
+          <div class="createacc">
+            <a routerLink="/login" class="normaLink">Already have an account?</a>
+          </div>
+        </form>
+
+        <div class="col-md-8 col-md-offset-2" [hidden]="!showMsjeWelcome">
+          <h4>Welcome to BuildUp!</h4>
+          <h4>Please, check your email to activate your BuildUp Account</h4>
+          <div class="createacc">
+            <a routerLink="/login" class="normaLink">Go back to Login</a>
+          </div>
+        </div>
+        <div class="col-md-8 col-md-offset-2" [hidden]="!showMsjeRegistError">
+          <h4>Error to Register!</h4>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>

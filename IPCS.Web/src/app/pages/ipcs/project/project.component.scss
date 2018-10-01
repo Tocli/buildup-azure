@@ -1,0 +1,179 @@
+@import "~scss/variables";
+@import "~scss/mixins";
+#list-header, .headerReport{
+  background: #EFF4F7;
+  width: 100%;
+  margin: 0 auto;
+  display: inline-table;
+  min-height: 110px;
+  //overflow: hidden;
+  //padding: 90px 0px 20px;
+  padding: 20px 0px;
+  &.minHeight{
+    min-height:0;
+  }
+  h3{
+    color:#073D7D;
+    font-size: 28px;
+    float: left;
+    margin-top: 0;
+    white-space: normal;
+    word-break: keep-all;
+  }
+  h3 span, .breadcrumbs{
+    color:#459FF6;
+    font-size:15px;
+    line-height: 24px;
+    display: block;
+    font-family: 'Gudea', sans-serif;
+    white-space: pre-wrap;
+    word-break: keep-all;
+  }
+  #createproj{
+    font-size: 14px;
+    font-family: 'Gudea', sans-serif;
+    width: 160px;
+    height: 36px;
+    margin-top: -7px;
+  }
+}
+
+.date {
+  color: $gray2;
+  font-size: 13px;
+  display: block;
+  float: left;
+  width:100%;
+}
+.pac-container{
+  z-index: 20000000;
+  position: fixed !important;
+  /*top: 140px !important;*/
+}
+
+.txts {
+  display: block;
+  float: left;
+  width:60%;
+  @supports (-ms-ime-align:auto){
+    display: block;
+  }
+  @media screen and (min-width:0\0){
+    display: block;
+  }
+}
+
+#bargrey {
+  position: absolute;
+  width: 100%;
+  left: 0;
+  height: 60px;
+  background: $white2;
+  z-index: -1;
+}
+.bartabsnav {
+  .nav-tabs{
+    width: 100%;
+    background: $white2;
+    display: inline-flex;
+    list-style: none;
+    @include media-max($break-sm){
+        width: calc(100% + 30px);
+        margin: 0 -15px;
+        display: block;
+    }
+    > li.nav-item{
+      width: 20%;
+      height: 45px;
+      text-align: center;
+      display: block;
+      border: 0;
+      border-radius: 0;
+      @include media-max($break-sm){
+        width:100%;
+      }
+      a{
+        border: 0;
+        border-radius: 0;
+        display: block;
+        padding: 10px;
+        color: $gray4;
+        height: 35px;
+        overflow: hidden;
+        text-decoration: none;
+        span{
+          @include font-size(14px);
+        }
+        &:hover {
+          text-decoration: none;
+          background: transparent;
+          border-color: $white2 $white2 $gray5;
+        }
+        &.active {
+          color: $blueLight;
+        }
+      }
+      &.active {
+        background: $white;
+        a {
+          background-color: $white;
+          border-left: 0;
+          border-right: 0;
+          border-top: 3px solid $blueLight;
+          color: inherit;
+          min-height:45px;
+          @include media-max($break-sm){
+            border-top: 0;
+            border-bottom: 3px solid $blueLight;
+          }
+          span{
+            @include font-size(15px);
+            border: 0;
+          }
+          &:hover{
+            border-bottom: 0;
+          }
+        }
+      }
+    }
+  }
+}
+.projectAccordion{
+  .panel-group{
+    width: 100%;
+    margin-top: 15px;
+    .panel{
+      margin: 0;
+      border: 0;
+      border-radius: 0;
+      box-shadow: none;
+      .panel-heading{
+        line-height: 22px;
+        border-bottom: 2px solid #459FF6;
+        padding: 10px 0;
+        background-color: white;
+        .accordion-toggle{
+          color: #337ab7;
+          text-decoration: none;
+          @include font-size(14px);
+        }
+      }
+      .panel-body{
+        border: 0 !important;
+        padding: 0;
+        .informationContent{
+          padding: 20px 0;
+        }
+      }
+    }
+  }
+}
+/*.amcharts-main-div{
+  width: 150px !important;
+  .amcharts-chart-div{
+    width: 150px !important;
+    > svg{
+      width: 150px !important;
+    }
+  }
+}*/

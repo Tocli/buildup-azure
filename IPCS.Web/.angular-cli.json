@@ -1,0 +1,77 @@
+{
+  "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+  "project": {
+    "name": "ipcs"
+  },
+  "apps": [
+    {
+      "root": "src",
+      "outDir": "wwwroot",
+      "assets": [
+        "assets",
+        "amcharts",
+        "favicon.ico",
+        "img"
+      ],
+      "index": "index.html",
+      "main": "main.ts",
+      "polyfills": "polyfills.ts",
+      "test": "test.ts",
+      "tsconfig": "tsconfig.app.json",
+      "testTsconfig": "tsconfig.spec.json",
+      "prefix": "app",
+      "styles": [
+        "scss/styles.scss"
+      ],
+      "scripts": [
+        "../node_modules/sweetalert2/dist/sweetalert2.js",
+        "../node_modules/moment/min/moment.min.js",
+        "../node_modules/jspdf/dist/jspdf.min.js",
+        "../node_modules/html2canvas/dist/html2canvas.js",
+        "../node_modules/jspdf-autotable/dist/jspdf.plugin.autotable.js",
+        "../node_modules/jquery/dist/jquery.js",
+        "./assets/js/slidereveal.js",
+        "../node_modules/intl-tel-input/build/js/utils.js",
+        "../node_modules/intl-tel-input/build/js/intlTelInput.js",
+        "./assets/js/amcharts.js",
+        "./assets/js/amexport_combined.js",
+        "./assets/js/serial.js",
+        "./assets/js/gauge.js"
+      ],
+      "environmentSource": "environments/environment.ts",
+      "environments": {
+        "dev": "environments/environment.dev.ts",
+        "uat": "environments/environment.uat.ts",
+        "hpu": "environments/environment.hpu.ts",
+        "qa": "environments/environment.qa.ts",
+        "freetier": "environments/environment.freetier.ts"
+      }
+    }
+  ],
+  "e2e": {
+    "protractor": {
+      "config": "./protractor.conf.js"
+    }
+  },
+  "lint": [
+    {
+      "project": "src/tsconfig.app.json"
+    },
+    {
+      "project": "src/tsconfig.spec.json"
+    },
+    {
+      "project": "e2e/tsconfig.e2e.json"
+    }
+  ],
+  "test": {
+    "karma": {
+      "config": "./karma.conf.js"
+    }
+  },
+  "defaults": {
+    "styleExt": "scss",
+    "component": {
+    }
+  }
+}

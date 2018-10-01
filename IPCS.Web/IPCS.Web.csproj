@@ -1,0 +1,64 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp1.1</TargetFramework>
+    <!--PreBuildEvent Condition=" '$(Configuration)' == 'QA' ">ng build -e qa -t production</PreBuildEvent-->
+    <!--PreBuildEvent Condition=" '$(Configuration)' == 'Uat' ">ng build -e uat -t production</PreBuildEvent-->
+        <!--PreBuildEvent Condition=" '$(Configuration)' == 'Freetier' ">ng build -e freetier -t production</PreBuildEvent-->
+    <PreBuildEvent Condition=" '$(Configuration)' == 'Debug' ">ng build -e dev</PreBuildEvent>
+    <PreBuildEvent Condition=" '$(Configuration)' == 'Release' ">ng build -e prod -t production</PreBuildEvent>
+    <TypeScriptCompileBlocked>True</TypeScriptCompileBlocked>
+    <Configurations>Debug;Release;QA;Stage;Devdw</Configurations>
+  </PropertyGroup>
+ 
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Hpu|AnyCPU' ">
+    <IntermediateOutputPath>obj\Release\netcoreapp1.1</IntermediateOutputPath>
+    <Optimize>true</Optimize>
+    <DefineConstants>TRACE;RELEASE;NETCOREAPP1_1</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'HpuDebug|AnyCPU' ">
+    <IntermediateOutputPath>obj\Debug\netcoreapp1.1</IntermediateOutputPath>
+    <Optimize>false</Optimize>
+    <DefineConstants>TRACE;DEBUG;NETCOREAPP1_1</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Freetier|AnyCPU' ">
+    <IntermediateOutputPath>obj\Freetier</IntermediateOutputPath>
+    <DebugSymbols>false</DebugSymbols>
+    <DebugType></DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Freetier</OutputPath>
+    <DefineConstants></DefineConstants>
+    <NoWarn></NoWarn>
+    <NoStdLib>false</NoStdLib>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Uat|AnyCPU' ">
+    <IntermediateOutputPath>obj\Uat</IntermediateOutputPath>
+    <DebugSymbols>false</DebugSymbols>
+    <DebugType></DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Uat</OutputPath>
+    <DefineConstants></DefineConstants>
+    <NoWarn></NoWarn>
+    <NoStdLib>false</NoStdLib>
+  </PropertyGroup>
+  <ItemGroup>
+    <None Remove="Properties\PublishProfiles\buildup-web-preprod - FTP.pubxml" />
+    <None Remove="Properties\PublishProfiles\buildup-web-preprod - Web Deploy.pubxml" />
+    <None Remove="Properties\PublishProfiles\ipcs-web - Web Deploy.pubxml" />
+    <None Remove="Properties\PublishProfiles\ipcs-web-dev - Web Deploy.pubxml" />
+    <None Remove="Properties\PublishProfiles\ipcs-web-dev-dw - FTP.pubxml" />
+    <None Remove="src\app\api\contact-data.service.ts" />
+    <None Remove="Properties\PublishProfiles\ipcs-web-dev-dw - Web Deploy.pubxml" />
+  </ItemGroup>
+
+  
+  <ItemGroup>
+    <Folder Include="Properties\PublishProfiles\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore" Version="1.1.2" />
+    <PackageReference Include="Microsoft.AspNetCore.StaticFiles" Version="1.1.2" />
+  </ItemGroup>
+
+</Project>

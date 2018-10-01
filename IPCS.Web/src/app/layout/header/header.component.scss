@@ -1,0 +1,36 @@
+@import "~scss/variables";
+@import "~scss/mixins";
+.navbar-right{
+  margin-right: 0;
+}
+
+.fixed-top {
+  position: fixed !important;
+  top: 0 !important;
+}
+.navbar {
+  .nav{
+    > li {
+      > a {
+        &:hover, &:focus, &:active {
+          color: white;
+        }
+        &:focus{
+          background-color: transparent;
+        }
+      }
+    }
+    &.usermenur{
+      > li {
+        > a {
+          min-width: 200px;
+          max-width: 350px;
+          text-overflow: ellipsis;
+          overflow: hidden;
+          white-space: nowrap;
+          display: inline-block;
+        }
+      }
+    }
+  }
+}

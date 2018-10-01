@@ -1,0 +1,7 @@
+@import "~scss/variables";
+@import "~scss/mixins";
+
+.table thead tr th {
+  word-wrap: break-word;
+  hyphens: manual;
+}

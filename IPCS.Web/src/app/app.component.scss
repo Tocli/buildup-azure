@@ -1,0 +1,252 @@
+@import "~scss/variables";
+@import "~scss/mixins";
+
+*::selection{
+  background-color: $blue;
+  color: $white;
+}
+
+html, body {
+  font-family: $titillium;
+  font-size: 62.5%; /* Sets up the Base 10 stuff */
+  overflow-x: hidden !important;
+  @include scrollbar(7px, 10px, $blueLight, $white2);
+}
+body{
+  transition: none !important;
+  @media screen and (min-width:0\0) {
+    position: inherit !important;
+    left: inherit !important;
+    transition: inherit !important;
+    padding-right: inherit !important;
+  }
+}
+body.modal-open, body.swal2-shown{
+  padding-right: 8px;
+  /*position: absolute !important;*/
+  top:0;
+  width:100%;
+  header{
+    padding-right: 7px;
+  }
+  @-moz-document url-prefix() {
+    padding-right: 17px;
+    transition: none !important;
+    header{
+      padding-right: 17px;
+      transition: none !important;
+    }
+  }
+  @media screen and (min-width:0\0){
+    position: relative !important;
+    overflow-x: hidden !important;
+    left: 0px !important;
+    padding-right: 8px !important;
+  }
+}
+
+  select::-ms-expand {
+    @media screen and (min-width:0\0){
+      display: none;
+    }
+    @-moz-document url-prefix(){
+      display: none;
+    }
+  }
+
+p, label, input, select, textarea, td, th, div{
+  @include font-size(14px);
+}
+label{
+  font-weight: normal;
+  color: $gray1;
+}
+span{
+  @include font-size(12px);
+}
+select.form-control{
+  background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABYAAAAKCAYAAACwoK7bAAAABGdBTUEAALGPC/xhBQAAAHtJREFUKBVjYBiS4OzZs4VAnI7P8SB5kDp8apDlmKCcB0B6Ei7DoeKTgGpA6kgDQM2BQPwT3XAQHyoeSJqJSKqBBqAYTomhjEjmgpkgw4GMFf///1/LyMgYDGRHGBsbr0dXRxYfZPiZM2e+Qi0hywycmi5evCiGU3IgJQDfVEu6yfwTNAAAAABJRU5ErkJggg==);
+}
+input{
+  border-radius: 0px !important;
+}
+//Buttons styles
+
+.btn{
+  box-shadow: none;
+  &.btn-info {
+    margin-bottom: 15px;
+    @include font-size(16px);
+  }
+  &.btn-primary {
+    color: $white;
+    background-color: $blue;
+    border-color: $blue;
+  }
+  &.linesimple{
+    font-size: 12px;
+    background:none;
+    margin-right: 13px;
+    border: 1px solid;
+    padding: 7px;
+    border-radius: 5px;
+    width: 110px;
+    text-align: center;
+  }
+  &.btn-danger{
+    background: $red;
+    border-color: $red;
+  }
+}
+
+//Modal styles
+.modal.fade.in{
+  width:100vw;
+  height:100vh;
+  display: flex !important;
+  align-items: center;
+  .btns {
+    float: right;
+    margin-top: 20px;
+  }
+  h4 {
+    border-bottom: 1px solid;
+    padding-bottom: 11px;
+    color: $blue;
+    font-weight: bold;
+  }
+}
+.bottomline{
+  margin-bottom: 25px;
+  @include media-max($break-md){
+    button.btn{
+      width: 100% !important;
+    }
+  }
+}
+//Loading styles
+.ng-busy-backdrop{
+  position: fixed;
+  z-index:9999;
+  align-items: center;
+  display: flex;
+}
+.ng-busy{
+  position: fixed;
+  z-index:10000;
+  width:100vw;
+  height:100vh;
+  display: flex;
+  align-items: center;
+}
+.ng-busy, .ng-busy > *, .ng-busy > ng-component > *{
+  position: fixed;
+  width:100%;
+  height:100%;
+}
+.ng-busy-default-wrapper{
+  position: fixed !important;
+  z-index:10000;
+  width:100%;
+  height:100%;
+  display: flex;
+  align-items: center;
+  justify-content:center;
+}
+.ng-busy-default-sign{
+  border-radius: 5px;
+}
+
+.modal-dialog{
+  /*margin-bottom: 50px !important;
+  top: 80px !important;*/
+  @include media-max($break-md){
+    width:100%;
+    .btns{
+      width: 100%;
+      .btn{
+        width:100%;
+        margin-bottom: 5px;
+      }
+    }
+  }
+}
+.contentModalScroll {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  right: 0;
+  min-height: 100vh;
+  display: flex;
+  /*margin-bottom: 40px;*/
+}
+
+.table-responsive {
+  width:100%;
+  @include media-max(767px){
+    overflow: scroll !important;
+  }
+  th {
+    text-align: center;
+  }
+}
+
+td{
+  white-space:nowrap;
+}
+select + .alert.alert-danger{
+  @-moz-document url-prefix(){
+    bottom: -22px;
+  }
+  @media screen and (min-width:0\0){
+    bottom: -22px;
+  }
+  @media screen and (-webkit-min-device-pixel-ratio:0) {
+    bottom: -22px;
+  }
+}
+.inputline  .input-group-addon + .alert.alert-danger,
+.inputline  input + .alert.alert-danger{
+  @media screen and (min-width:0\0){
+    bottom: -22px;
+  }
+  @-moz-document url-prefix(){
+    bottom: -22px;
+  }
+  @media screen and (-webkit-min-device-pixel-ratio:0) {
+    bottom: -22px;
+  }
+}
+@media screen and (min-width:0\0){
+  .navbar-fixed-top, .navbar-static-top, .navbar-fixed-bottom {
+    position: fixed;
+    width:100%;
+    top:0;
+    .fluid-container {
+      position: fixed;
+      width:100%;
+      top:0;
+      .navbar-header{
+        position: fixed;
+        width:100%;
+        top:0;
+      }
+      .navbar-collapse {
+        position: fixed;
+        width: calc(100% - 140px);
+        right: 0;
+        top:0;
+      }
+    }
+  }
+}
+@import "/layout/header/header.component";
+@import "/pages/security/login/login.component";
+@import "/pages/ipcs/my-profile/my-profile.component";
+@import "/pages/ipcs/projects/projects.component";
+@import "/pages/ipcs/project/project.component";
+@import "/pages/ipcs/project/information/information.component";
+@import "/pages/ipcs/project/location/location.component";
+@import "/pages/ipcs/project/participants/participants.component";
+@import "/pages/ipcs/project/load-image/load-image.component";

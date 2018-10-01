@@ -1,0 +1,96 @@
+﻿<div class="modal-body">
+  <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="onClose()">
+    <span aria-hidden="true">×</span>
+  </button>
+  <div class="row">
+    <div class="col-lg-12">
+      <div>
+        <h4>{{title}}</h4>
+      </div>
+      <p>Complete the form</p>
+    </div>
+    <form #newParticipantForm="ngForm" (ngSubmit)="saveNewParticipant(newParticipantForm.valid)">
+      <div class="col-lg-6">
+        <div class="inputline">
+          <label>Company Name *</label>
+          <input type="text" id="company" name="company" [(ngModel)]="newContact.companyName"
+                 [ngClass]="{'alertInput': !company.valid && (!company.pristine || newParticipantForm.submitted)}"
+                 required maxlength="64" #company="ngModel">
+        </div>
+        <small class="alert alert-danger moreRight5" [hidden]="company.valid || (company.pristine && !newParticipantForm.submitted)">
+        This is a required field
+        </small>
+        <div class="inputline">
+          <label>Contract Number</label>
+          <input type="tel" id="contactnro"
+                 name="contactnro" [(ngModel)]="newContact.contractNum" maxlength="64"
+                 #contactnro="ngModel">
+        </div>
+        <div class="inputline">
+          <label>Entity *</label>
+          <select #optionEntityId class="noMargin" name="entity" required [(ngModel)]="newContact.entityId" #entityModel="ngModel" >
+            <option  [value]="entity.id" *ngFor="let entity of entitiesList">{{entity.name}}</option>
+          </select>
+        </div>
+        <small class="alert alert-danger moreRight5" [hidden]="entityModel.valid || (entityModel.pristine && !newParticipantForm.submitted)">
+          This is a required field
+        </small>
+        <div *ngIf="optionEntityId.selectedIndex === 5">
+          <div class="inputline">
+            <label>Entity Name *</label>
+            <input type="text" id="entityDescription" name="entityDescription"
+                   [ngClass]="{'alertInput': !entityName.valid && (!entityName.pristine || newParticipantForm.submitted)}"
+                   [(ngModel)]="newContact.entityDescription" maxlength="64"
+                   required #entityName="ngModel">
+          </div>
+          <small class="alert alert-danger moreRight5" [hidden]="entityName.valid || (entityName.pristine && !newParticipantForm.submitted)" >
+            This is a required field
+          </small>
+        </div>
+      </div>
+      <div class="col-lg-6">
+        <div class="inputline">
+          <label>Contact Person *</label>
+          <input type="text" id="contactperson" name="contactperson"
+                 [ngClass]="{'alertInput': !contactperson.valid && (!contactperson.pristine || newParticipantForm.submitted)}"
+                 [(ngModel)]="newContact.contactPerson" maxlength="64"
+                 required #contactperson="ngModel">
+        </div>
+        <small class="alert alert-danger moreRight5" [hidden]="contactperson.valid || (contactperson.pristine && !newParticipantForm.submitted)">
+          This is a required field
+        </small>
+        <div class="inputline">
+          <label>Phone *</label>
+          <input type="tel"   minlength="5" maxlength="64"
+                 [ngClass]="{'alertInput': !tel.valid && (!tel.pristine || newParticipantForm.submitted)}"
+                 id="tel" name="tel" required class="phone"
+                 pattern="^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{1}[-\s\.]?[0-9]{1,63}$"
+                [(ngModel)]="newContact.tel"  #tel="ngModel">
+        </div>
+
+        <small class="alert alert-danger moreRight5" [hidden]="tel.valid || (tel.pristine && !newParticipantForm.submitted)">
+          Please enter a valid phone number
+        </small>
+        <div class="inputline">
+          <label>Email *</label>
+          <input type="text" id="email" name="email"
+                 [ngClass]="{'alertInput': !email.valid && (!email.pristine || newParticipantForm.submitted)}"
+                 [(ngModel)]="newContact.email" required #email="ngModel" maxlength="64"
+                 pattern="^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$">
+        </div>
+        <small class="alert alert-danger moreRight5" [hidden]="email.valid || (email.pristine && !newParticipantForm.submitted)">
+          Please enter a valid email address
+        </small>
+      </div>
+      <div class="col-lg-12" style="margin-top: 20px">
+        <div class="requiredInfoLabel">
+          * Required Information
+        </div>
+        <div class="btns">
+          <button type="button" (click)="onClose()" class="btn linesimple">Cancel</button>
+          <button type="submit" class="btn editpr btn-primary">Save</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

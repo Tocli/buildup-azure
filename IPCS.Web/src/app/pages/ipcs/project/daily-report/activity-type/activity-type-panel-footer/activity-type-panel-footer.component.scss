@@ -1,0 +1,11 @@
+@import "~scss/variables";
+@import "~scss/mixins";
+
+  div{
+    padding: 7px 15px;
+    word-wrap: break-word;
+    border-bottom: solid 1px $gray6;
+    p{
+      margin: 0;
+    }
+  }

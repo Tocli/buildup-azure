@@ -1,0 +1,11 @@
+<div class="txts" *ngIf="projectInformation !== null">
+  <div class="breadcrumbs" *ngIf="isNew">Projects / New Project / {{sectionName}} </div>
+  <div class="breadcrumbs" *ngIf="!isNew">Projects / {{projectInformation?.projectName}} / {{sectionName}}</div>
+  <h3>
+    {{projectInformation?.projectName}}
+  </h3>
+  <div class="date">
+    <i class="icon-clock icons"></i>
+    Last Update : {{projectInformation?.lastModify | date: 'MM/dd/y' : 'ISO'}} {{projectInformation?.lastModify | date: 'jm' : 'ISO'}}
+  </div>
+</div>

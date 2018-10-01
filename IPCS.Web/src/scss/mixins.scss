@@ -1,0 +1,116 @@
+// =============================================================================
+// Convert px to rem
+// =============================================================================
+@function calculateRem($size) {
+  $remSize: $size / 10px;
+  @return #{$remSize}rem;
+}
+@mixin font-size($size) {
+  font-size: $size;
+  font-size: calculateRem($size);
+}
+// =============================================================================
+// Mixins
+// =============================================================================
+@mixin opacity($opacity) {
+  opacity: $opacity;
+  $opacity-ie: $opacity * 100;
+  filter: alpha(opacity=$opacity-ie); //IE8
+}
+@mixin improve-text-rendering {
+  text-rendering:optimizeLegibility;
+  -webkit-font-smoothing:antialiased;
+}
+// =============================================================================
+// Media Query
+// =============================================================================
+@mixin media-max($width){
+  @media only screen and (max-width: $width - 1) { @content; }
+}
+@mixin media-min($width){
+  @media only screen and (min-width: $width) { @content; }
+}
+@mixin media-btn($width-min, $width-max){
+  @media only screen and (min-width: $width-min) and (max-width: $width-max - 1) { @content; }
+}
+// =============================================================================
+@mixin media($media) {
+  @if $media == all_desktop {
+    @media only screen and (min-width: $break-lg) { @content; }
+  }
+  @else if $media == large_desktop {
+    @media only screen and (min-width: $break-xl) { @content; }
+  }
+  @if $media == phone {
+    @media only screen and (max-width: $break-sm) { @content; }
+  }
+  @else if $media == mobile {
+    @media only screen and (max-width: $break-md - 1) { @content; }
+  }
+  @else if $media == large_desktop_max {
+    @media only screen and (max-width: $break-xl - 1) { @content; }
+  }
+  @else if $media == tablet {
+    @media only screen and (min-width: $break-sm + 1) and (max-width: $break-lg - 1) { @content; }
+  }
+  @else if $media == desktop {
+    @media only screen and (min-width: $break-lg) and (max-width: $break-xl - 1) { @content; }
+  }
+}
+// =============================================================================
+// click all div container
+// =============================================================================
+@mixin click-all{
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1000;
+  text-indent: 200%;
+  white-space: nowrap;
+  font-size: 0;
+  opacity: 0;
+}
+
+// =============================================================================
+// background transparent
+// =============================================================================
+@mixin alpha-back-color($color, $opacity) {
+  background-color: rgba($color, $opacity);
+}
+@mixin transition($args...) {
+  transition: $args;
+}
+
+@mixin transform($args...) {
+  transform: $args;
+  -moz-transform: $args;
+  -ms-transform: $args;
+  -webkit-transform: $args;
+}
+
+/**
+ * Mixin scrollbar
+ */
+@mixin scrollbar($size, $border-radius, $primary, $secondary: lighten($primary, 25%)) {
+  ::-webkit-scrollbar {
+    width:  $size;
+    height: $size;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: $primary;
+    border-radius: $border-radius;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: $secondary;
+  }
+
+  // For Internet Explorer
+  body {
+    scrollbar-face-color: $primary;
+    scrollbar-track-color: $secondary;
+  }
+}

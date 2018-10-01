@@ -1,0 +1,25 @@
+@import "~scss/variables";
+@import "~scss/mixins";
+
+.divTitle {
+  display: block;
+  float: left;
+  width:60%;
+  left:42%;
+  text-align: left;
+  .h3Title{
+    font-size: 26px !important;
+    padding-top: 8%;
+  }
+  @supports (-ms-ime-align:auto){
+    display: block;
+  }
+  @media screen and (min-width: 780px){
+    display: block;
+    text-align: center;
+    .h3Title{
+      font-size: 28px !important;
+      padding-top: 0%;
+    }
+  }
+}

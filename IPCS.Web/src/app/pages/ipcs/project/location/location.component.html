@@ -1,0 +1,90 @@
+﻿<div class="modal-body">
+  <button type="button" class="close" data-dismiss="modal" (click)="onClose()" aria-label="Close">
+    <span aria-hidden="true">×</span>
+  </button>
+  <div class="row">
+    <form #locationForm="ngForm" novalidate>
+      <div class="col-lg-12">
+        <h4>Location</h4>
+        <p>Please fill out the information below</p>
+      </div>
+      <div class="col-lg-6">
+        <div class="inputline">
+          <label>Address Line 1 *</label>
+          <input tabindex="7" type="text" name="add" [(ngModel)]="location.address1"
+                 [ngClass]="{'alertInput': !address1.valid && (!address1.pristine || locationForm.submitted)}"
+                 required #address1="ngModel" maxlength="64">
+        </div>
+        <small class="alert alert-danger moreRight3" [hidden]="address1.valid || (address1.pristine && !locationForm.submitted)">
+          This is a required field
+        </small>
+        <div class="inputline">
+          <label>Address Line 2</label>
+          <input tabindex="8" type="text" name="add2" [(ngModel)]="location.address2" #address2="ngModel" maxlength="64">
+        </div>
+        <div class="inputline">
+          <label>Zip Code</label>
+          <input tabindex="9" type="text" name="zip" [(ngModel)]="location.zipCode"  #zipcode="ngModel" maxlength="32">
+        </div>
+      </div>
+      <div class="col-lg-6">
+        <div class="inputline select">
+          <label>Country *</label>
+          <select tabindex="10" name="country"
+                  [ngClass]="{'alertInput': !countryModel.valid && (!countryModel.pristine || locationForm.submitted)}"
+                  required [(ngModel)]="location.country" #countryModel="ngModel" (change)="countryChange()">
+            <option [value]="country.code"  *ngFor="let country of countries">{{country.description}}</option>
+          </select>
+        </div>
+        <small class="alert alert-danger moreRight3" [hidden]="countryModel.valid || (countryModel.pristine && !locationForm.submitted)">
+            This is a required field
+        </small>
+        <div class="inputline" *ngIf="states.length > 0">
+          <label>State *</label>
+          <select tabindex="11" #stateModel="ngModel" name="state" [(ngModel)]="location.state"
+                  required (change)="stateChange()">
+            <option *ngFor="let state of states" [value]="state.code">{{state.description}}</option>
+          </select>
+          <small class="alert alert-danger moreRightForProjectLocation" [hidden]="stateModel?.valid || (stateModel?.pristine && !locationForm.submitted)">
+            This is a required field
+          </small>
+        </div>
+          <div class="inputline" *ngIf="states.length === 0">
+            <label>State *</label>
+            <input tabindex="12" type="text" name="sta"
+                   [ngClass]="{'alertInput': !stateModel.valid && (!stateModel.pristine || locationForm.submitted)}"
+                   required [(ngModel)]="location.state" #stateModel="ngModel" maxlength="32">
+            <small class="alert alert-danger moreRightForProjectLocation" [hidden]="stateModel.valid || (stateModel.pristine && !locationForm.submitted)">
+              This is a required field
+            </small>
+          </div>
+        <div class="inputline" *ngIf="cities.length > 0">
+          <label>City *</label>
+          <select tabindex="13" name="citySelect" [(ngModel)]="location.city" #cityselectModel="ngModel"
+                  required>
+            <option *ngFor="let city of cities" [value]="city.description">{{city.description}}</option>
+          </select>
+          <small class="alert alert-danger moreRightForProjectLocation" [hidden]="cityselectModel.valid || (cityselectModel.pristine && !locationForm.submitted)">
+            This is a required field
+          </small>
+        </div>
+        <div tabindex="14" class = "inputline" *ngIf="cities.length === 0" >
+          <label>City *</label>
+          <input type="text" name="cit"
+                 [ngClass]="{'alertInput': !city.valid && (!city.pristine || locationForm.submitted)}"
+                 required [(ngModel)]="location.city" #city="ngModel" maxlength="32">
+          <small class="alert alert-danger moreRightForProjectLocation" [hidden]="city.valid || (city.pristine && !locationForm.submitted)">
+            This is a required field
+          </small>
+        </div>
+
+      </div>
+      <div class="col-lg-12">
+        <div class="btns">
+          <button tabindex="16" class="btn linesimple" (click)="onClose()">Cancel</button>
+          <button tabindex="15"type="submit" class="btn editpr btn-primary" (click)="onSave(locationForm.valid)">Save</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

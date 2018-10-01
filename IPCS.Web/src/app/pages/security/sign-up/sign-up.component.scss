@@ -1,0 +1,44 @@
+@import "~scss/variables";
+@import "~scss/mixins";
+
+  input {
+    height: 34px;
+    width: 100%;
+    &.alertInput {
+      border-color: red;
+    }
+    &:active, &:focus {
+      border-color: $blue;
+    }
+  }
+
+.alert.alert-danger{
+  @include font-size(12px);
+  z-index: 500;
+  right: 15px;
+  margin: 0;
+  margin-bottom: 0px;
+  max-width: 92%;
+  position: absolute;
+  padding: 13px;
+  line-height: 1.2;
+  background: transparent;
+  border: none;
+  color: $red;
+  box-shadow: none;
+  /*&:after{
+    content: none;
+    position: absolute;
+    z-index: 1;
+    right: 10px;
+    top: -14px;
+    height: 14px;
+    width: 14px;
+    border-left: 7px solid transparent;
+    border-right: 7px solid transparent;
+    border-bottom: 7px solid $red;
+  }*/
+  &.moreRight{
+    right: 20%;
+  }
+}

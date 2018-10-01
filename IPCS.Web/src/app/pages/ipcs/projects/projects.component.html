@@ -1,0 +1,147 @@
+<div class="fluid-container">
+  <div tabindex="11" id="projects-lists" [ngClass]="{'projectHidden': projectsViewState == 'hide'}">
+    <div id="list-header">
+      <h3 tabindex="7">
+        <span>Home</span>
+        Project List
+      </h3>
+      <div class="btns text-right">
+        <button class="btn editpr btn-primary" routerLink="/build-up/project/new" id="createproj">Create Project</button>
+      </div>
+    </div>
+    <div class="contentProjectTable">
+      <div class="subheaders">
+        <div class="srch" id="custom-search-input">
+          <div class="input-group">
+            <input #searchProjects tabindex="8" type="text" [(ngModel)]="searchString"
+                   placeholder="Search by Name or Project ID"/>
+          </div>
+        </div>
+        <div class="filters">
+          <label for="sel1">Show:</label>
+          <select id="sel1" [(ngModel)]="currentStatus" (change)="changeStatus()">
+            <option [value]="0">All</option>
+            <option [value]="status.id" *ngFor="let status of statuses" [selected]="status.id === currentStatus">
+              {{status.name}}
+            </option>
+          </select>
+        </div>
+      </div>
+      <div class="tableProyectsContainer">
+        <div [ngBusy]="{busy: busy,wrapperClass: 'bussy-table ng-busy'}"></div>
+        <table class="table table-striped" style="table-layout: fixed">
+          <thead>
+          <tr>
+            <th width="10%"><a style="cursor: default" href="javascript:void(0)">Photo</a></th>
+            <th width="40%"><a style="cursor: pointer" (click)="orderBy('ProjectName')"
+                               [ngClass]="{'orderArrow': columnOrder === 'ProjectName', 'invert': !paginatorRequestModel.desc}">Project</a>
+            </th>
+            <th width="20%"><a style="cursor: pointer" (click)="orderBy('ProjectLocation')"
+                               [ngClass]="{'orderArrow': columnOrder === 'ProjectLocation', 'invert': !paginatorRequestModel.desc}">Location</a>
+            </th>
+            <th width="15%"><a style="cursor: pointer" (click)="orderBy('Created')"
+                               [ngClass]="{'orderArrow': columnOrder === 'Created', 'invert': !paginatorRequestModel.desc}">Status</a>
+            </th>
+            <th width="20%"><a style="cursor: default" href="javascript:void(0)">Last Updated</a></th>
+            <th width="15%"><a style="cursor: default" href="javascript:void(0)">Actions</a></th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let project of projects" (click)="centerMapProyect(project)">
+            <td data-title="Photo">
+              <div class="imgContentTable">
+                <img align="middle" (error)="loadDefaultImage(image)" #image
+                     [src]="environment.baseProjectImageUrl + project.id + '.png?nocache='+random"
+                     alt="{{project.projectName}}">
+              </div>
+            </td>
+            <td  data-title="Project">
+              <div tabindex="4" class="pr-titile ellipsis-col"><a [routerLink]="[project.id,'dashboard']">{{project.projectName}}</a>
+              </div>
+              <div class="id ellipsis-col">ID {{project.projectNumber}}</div>
+            </td>
+            <td data-title="Location" tabindex="5">
+              <div class="ellipsis-col">{{project.projectLocation.address1}}</div>
+              <div class="ellipsis-col">{{project.projectLocation.city}}</div>
+            </td>
+            <td data-title="Status" tabindex="6" style="width: 12em;">{{project.projectStatus.name}}</td>
+            <td data-title="Last Updated">
+              {{project.lastModify | date:'EEE, MMM dd, y'}}
+            </td>
+            <td data-title="Actions">
+              <a tabindex="12" style="display: inline" [routerLink]="[project.id,'dashboard']" tag="Dashboard" title="Dashboard"><i
+                class="icon-eye icons"></i></a>
+              <a href="javascript:void(0)" tabindex="12" style="display: inline" (click)="deleteProject(project.id)" tag="Delete" title="Delete"
+                 *ngIf="project.projectStatus.id === 1"><i
+                class="icon-trash icons"></i></a>
+            </td>
+
+          </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="row downplist">
+        <div tabindex="9" class="col-md-5 col-sm-12">
+          <div class="plist_info" role="status" aria-live="polite">Displaying {{currentRow}}-{{currentLastRow}} out of
+            {{totalRows}} entries
+          </div>
+        </div>
+        <div class="col-md-7 col-sm-12">
+          <ul class="plist pagination" *ngIf="projects.length > 0">
+            <li>
+              <a (click)="prevPage()" aria-label="Previous">
+                <span aria-hidden="true">&laquo;</span>
+              </a>
+            </li>
+            <li [ngClass]="{'active': page === paginatorRequestModel.page}" *ngFor="let page of pages"><a
+              (click)="changePage(page)">{{page+1}}</a></li>
+            <li>
+              <a (click)="nextPage()" aria-label="Next">
+                <span aria-hidden="true">&raquo;</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </div>
+  <div id="float_btns" class="float_btns">
+    <div class="bbtn collapser" id="collapser" [ngClass]="{'rotate': projectsViewState == 'hide'}"
+         (click)="hideShowProjectsPanel()"><span *ngIf="projectsViewState === 'hide'">Show Panel</span><span
+      *ngIf="projectsViewState !== 'hide'">Hide Panel</span><i class="icon-action-undo"></i></div>
+  </div>
+  <!-- PROJECTS LIST END -->
+  <div tabindex="10" id="projects-map" class="projects-map">
+    <input placeholder="search for location" type="text" class="form-control"
+           autocorrect="off" autocapitalize="off" spellcheck="off"
+           style="z-index: 10000010" #searchMap [formControl]="searchControl">
+    <agm-map #gm [latitude]="googleMapData.lat" [longitude]="googleMapData.lng" [zoom]="zoom">
+      <agm-marker (markerClick)="gm.lastOpen?.close(); gm.lastOpen = infoWindow;" *ngFor="let project of projects"
+                  [title]="project.projectName"
+                  [latitude]="parseFloat(project.coordinatesY)" [longitude]="parseFloat(project.coordinatesX)">
+        <agm-info-window #infoWindow><a [routerLink]="[project.id,'dashboard']">{{project.projectName}}</a>
+        </agm-info-window>
+      </agm-marker>
+    </agm-map>
+  </div>
+</div>
+
+<ng-template #template>
+  <div id="popsearch">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" (click)="hideModalSearch()" aria-label="Close">
+          <span class="text">Close</span><span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <input tabindex="8" class="form-control" name="x" placeholder="Search by Name, Project ID or type..."
+               type="text">
+        <span class="input-group-btn">
+				<button class="btn btn-primary" type="button"><i class="icon-magnifier icons"></i></button>
+			</span>
+      </div>
+    </div>
+  </div>
+</ng-template>

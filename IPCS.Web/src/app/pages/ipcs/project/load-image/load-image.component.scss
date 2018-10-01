@@ -1,0 +1,9 @@
+@import "~scss/variables";
+@import "~scss/mixins";
+
+.image-upload{
+	font-family: $titillium !important;
+	.upload{
+    	background-color: $blue !important;
+	}
+}

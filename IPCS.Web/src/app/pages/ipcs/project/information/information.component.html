@@ -1,0 +1,317 @@
+﻿<div class="container informationContent" [ngBusy]="busy">
+  <div class="col-lg-12 innerTitle">
+    <form #projectForm="ngForm">
+      <div class="row">
+        <div class="col-lg-6">
+          <div class="inputline">
+            <label>Project Name *</label>
+            <input tabindex="4" type="text" name="projectN"
+                   [ngClass]="{'alertInput': !projectName.valid && (!projectName.pristine || projectForm.submitted)}"
+                   required #projectName="ngModel" reverse="true" maxlength="60"
+                   [(ngModel)]="projectSession.projectInfo.projectName">
+          </div>
+          <small class="alert alert-danger" style="right: 15px"
+                 [hidden]="projectName.valid || (projectName.pristine && !projectForm.submitted) ">
+            This is a required field
+          </small>
+          <div class="inputline">
+            <label>Project Number</label>
+            <input tabindex="5" type="text" [(ngModel)]="projectSession.projectInfo.projectNumber" name="number"
+                   maxlength="128">
+          </div>
+          <div class="inputline">
+            <label>Location *</label>
+            <div class="input-group">
+              <input tabindex="6" (click)="openLocation()" name="address1" #address1="ngModel" type="text"
+                     class="location" readonly required
+                     [ngClass]="{'alertInput': !address1.valid && (!address1.pristine || projectForm.submitted)}"
+                     [(ngModel)]="projectSession.projectInfo.projectLocation.address1">
+              <button class="input-group-addon" type="button" (click)="openLocation()">
+                <i class="icon-direction icons"></i>
+              </button>
+            </div>
+            <small class="alert alert-danger moreRightForProjectLocation"
+                   [hidden]="address1.valid || (address1.pristine && !projectForm.submitted)">
+              This is a required field
+            </small>
+          </div>
+          <div class="inputline">
+            <label>Coordinates</label>
+            <div class="input-group">
+              <input tabindex="17" type="text" readonly
+                     value="{{this.projectCoordinates}}" (click)="openCoordinates()">
+              <button type="button" class="input-group-addon" (click)="openCoordinates()">
+                <i class="icon-map icons"></i>
+              </button>
+            </div>
+          </div>
+          <div class="inputline">
+            <label>Scope/Project Description</label>
+            <input tabindex="22" type="text" [(ngModel)]="projectSession.projectInfo.scope" name="scope" maxlength="3800" >
+          </div>
+          <div class="inputline">
+            <label>Project Picture</label>
+            <div tabindex="23" class="input-group underline" (click)="openLoadImage()">
+              <!--input tabindex="12" type="text"-->
+              <span class="contentImage">
+                  <img #projectImage width="100" src="/img/dafault_project_image.PNG"
+                       (error)="loadDefaultImage(projectImage)">
+                </span>
+              <button class="input-group-addon" (click)="openLoadImage()">
+                <i class="icon-picture icons"></i>
+              </button>
+            </div>
+          </div>
+        <!-- <div class="inputline">
+            <label>Budget</label>
+            <button tabindex="27" class="input-group-addon btns-top" type="button" (click)="openBudget()">
+              <i class="icon icon-plus"></i>
+            </button>
+            <select tabindex="33" class="budget" name="budget" [(ngModel)]="projectSession.projectInfo.budGetId">
+              <option [ngValue]="null">Without assigned budget</option>
+              <option [ngValue]="budget.id" *ngFor="let budget of budgetList">{{budget.name}} ({{budget.ammount}}
+                {{budget.currency.symbol}})
+              </option>
+            </select>
+          </div>-->
+        </div>
+        <div class="col-lg-6">
+          <div class="inputline">
+            <label>Project Status</label>
+            <div class="input-group select">
+              <input tabindex="34" [(ngModel)]="currentStatus" name="currentStatus" readonly>
+              <select id="sel1" [(ngModel)]="projectSession.projectInfo.statusId" name="statusId" *ngIf="projectSession.projectInfo.id !== undefined">
+                <option [value]="status.id" *ngFor="let status of statusesAvailables">
+                  {{status.name}}
+                </option>
+              </select>
+            </div>
+          </div>
+          <div class="inputline">
+            <label>Contract Duration *</label>
+            <div class="input-group select">
+              <input tabindex="34" appTimeDuration="" type="tel" name="contractD"
+                     [ngClass]="{'alertInput': !contractDuration.valid && (!contractDuration.pristine || projectForm.submitted)}"
+                     required #contractDuration="ngModel" reverse="true"
+                     [(ngModel)]="projectSession.projectInfo.contractDuration"
+                      (blur)="calculateEndDate()">
+              <select>
+                <option value="Days">Days</option>
+              </select>
+            </div>
+            <small class="alert alert-danger"
+                   [hidden]="contractDuration.valid || (contractDuration.pristine && !projectForm.submitted) ">
+              This is a required field
+            </small>
+          </div>
+
+          <div class="inputline">
+            <label>Construction Duration *</label>
+            <div class="input-group select">
+              <input  tabindex="35"  appTimeDuration="" type="tel" name="constructD"
+                      [ngClass]="{'alertInput': !constructDuration.valid && (!constructDuration.pristine || projectForm.submitted)}"
+                     required #constructDuration="ngModel" ng-pattern="/^[0-9]*$/" reverse="true"
+                     [(ngModel)]="projectSession.projectInfo.constructDuration">
+              <select>
+                <option value="Days">Days</option>
+              </select>
+            </div>
+            <small class="alert alert-danger"
+                   [hidden]="constructDuration.valid || (constructDuration.pristine && !projectForm.submitted) ">
+              This is a required field
+            </small>
+          </div>
+          <div class="inputline">
+            <label>Notice to Proceed</label>
+            <input [options]="dateTimePickerOptions" tabindex="36" readonly [(ngModel)]="npdModel" (click)="npdPicker.toggleCalendar()"
+                   style="float:none" ngx-mydatepicker
+                   name="npd" #npd="ngModel" #npdPicker="ngx-mydatepicker" (dateChanged)="onNpdChange($event)"/>
+            <button class="input-group-addon" type="button" (click)="npdPicker.toggleCalendar()">
+              <i class="icon-calendar icons"></i>
+            </button>
+          </div>
+          <div class="inputline">
+            <label>Original Project Start *</label>
+            <input [options]="dateTimePickerOptions" tabindex = "37" readonly required [(ngModel)]="opsModel" (click)="ops.toggleCalendar()" style="float:none"
+                   [ngClass]="{'alertInput': !opsModelValidate.valid && (!opsModelValidate.pristine || projectForm.submitted) }"
+                   ngx-mydatepicker
+                   name="ops" #opsModelValidate="ngModel" #ops="ngx-mydatepicker" (dateChanged)="onOpsChange($event)"/>
+            <button class="input-group-addon" type="button" (click)="ops.toggleCalendar()">
+              <i class="icon-calendar icons"></i>
+            </button>
+            <small class="alert alert-danger bottom-20"
+                   [hidden]="opsModelValidate.valid || (opsModelValidate.pristine && !projectForm.submitted)">
+              This is a required field
+            </small>
+
+          </div>
+
+          <div class="inputline">
+            <label>Actual Project Start</label>
+            <input [options]="dateTimePickerOptions" tabindex = "38" readonly [(ngModel)]="apsModel" (click)="aps.toggleCalendar()" style="float:none" ngx-mydatepicker
+                   name="aps" #aps="ngx-mydatepicker" (dateChanged)="onApsChange($event)"/>
+            <button class="input-group-addon" type="button" (click)="aps.toggleCalendar()">
+              <i class="icon-calendar icons"></i>
+            </button>
+          </div>
+
+          <div class="inputline">
+            <label>Project End Date</label>
+            <input [options]="dateTimePickerOptions" tabindex="39" readonly name="endProject"
+                   [(ngModel)]="projectEndModel" ngx-mydatepicker #projEnd="ngx-mydatepicker"  style="float:none"  (dateChanged)="onProjectEndChange($event)" >
+            <button class="input-group-addon" type="button">
+            </button>
+          </div>
+
+          <div class="inputline">
+            <label>Substantial Completion Date *</label>
+            <input [options]="dateTimePickerOptions" tabindex="40" readonly [(ngModel)]="scModel" required #scModelValidate="ngModel" (click)="sc.toggleCalendar()"
+                   style="float:none" ngx-mydatepicker
+                   [ngClass]="{'alertInput': !scModelValidate.valid && (!scModelValidate.pristine || projectForm.submitted) }"
+                   name="sc" #sc="ngx-mydatepicker" (dateChanged)="onScChange($event)"/>
+            <button class="input-group-addon" type="button" (click)="sc.toggleCalendar()">
+              <i class="icon-calendar icons"></i>
+            </button>
+            <small class="alert alert-danger bottom-20"
+                   [hidden]="scModelValidate.valid || (scModelValidate.pristine && !projectForm.submitted)">
+              This is a required field
+            </small>
+          </div>
+
+          <div class="inputline">
+            <label>Project Cost *</label>
+
+            <div class="input-group select">
+              <input tabindex="41" currencyMask type="tel"
+                     [ngClass]="{'alertInput': !originalCostValidate.valid && (!originalCostValidate.pristine || projectForm.submitted)}"
+                     [options]="{ prefix: ' ', thousands: ',', decimal: '.', align: 'left' }" name="originalCostValidate"
+                     required #originalCostValidate="ngModel"
+                     [(ngModel)]="projectSession.projectInfo.originalCost" maxlength="17" (change) ="onAutofillSelectedValue($event)">
+              <select tabindex="42">
+                <option [ngValue]="currency.id" *ngFor="let currency of currencyList">{{currency.symbol}}</option>
+              </select>
+            </div>
+            <small class="alert alert-danger"
+                   [hidden]="originalCostValidate.valid || (originalCostValidate.pristine && !projectForm.submitted)">
+              This is a required field
+            </small>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="requiredInfoLabel">
+            * Required Information
+          </div>
+          <div class="btns bottomline text-right">
+            <button tabindex="44" class="btn linesimple" type="button" routerLink="/build-up/projects">Cancel</button>
+            <button tabindex="43" class="btn editpr btn-primary" (click)="onSave()" type="submit">Save</button>
+          </div>
+        </div>
+      </div>
+
+    </form>
+  </div>
+</div>
+
+<div class="modal fade" bsModal #modalImage="bs-modal">
+  <div class="contentModalScroll">
+    <div class="modal-dialog modal-crooper">
+      <div class="modal-content">
+        <div class="modal-body">
+          <button type="button" class="close" data-dismiss="modal" (click)="hideLoadImage()" aria-label="Close">
+            <span aria-hidden="true">×</span>
+          </button>
+          <div class="row">
+            <div class="col-lg-12">
+              <h4>Load Image</h4>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-lg-12">
+              <img-cropper [image]="dataImage" [settings]="cropperSettings"></img-cropper>
+              <br>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-lg-12">
+              <div class="btns bottomline text-right">
+                <button  class="btn linesimple" type="button" (click)="hideLoadImage()">Cancel</button>
+                <button  class="btn editpr btn-primary" (click)="saveCropImage()">Save</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" bsModal #modalCoordinates="bs-modal" (onShown)="handlerShownMap()">
+  <div class="contentModalScroll">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-body">
+          <button type="button" class="close" data-dismiss="modal" (click)="onClose()" aria-label="Close">
+            <span aria-hidden="true">×</span>
+          </button>
+          <div class="row">
+            <div class="col-md-7 form-group">
+              <input placeholder="search for location" type="text" id="inputLocation" class="form-control"
+                     autocorrect="off" autocapitalize="off" spellcheck="off"
+                     #search [formControl]="searchControl" style="z-index: 10000010">
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-7 mlocation" style="height: 300px">
+              <agm-map (mapClick)="mapClick($event)" [zoom]="zoom"
+                       [scrollwheel]="true" [latitude]="googleMapData.lat" [longitude]="googleMapData.lng"
+                       [disableDefaultUI]="false">
+                <agm-marker [markerDraggable]="true" (dragEnd)="mapClick($event)"
+                            [latitude]="marker.lat" [longitude]="marker.lng"></agm-marker>
+              </agm-map>
+            </div>
+            <div tabindex="18" class="col-md-5">
+              <h4>Find Coordinates</h4>
+              <p>Fill out the information below or select a location on the map</p>
+              <div class="inputline">
+                <label>Lat</label>
+                <input tabindex="18" type="text" [(ngModel)]="marker.lat" (change)="changeLatLng()">
+              </div>
+              <div class="inputline">
+                <label>Long</label>
+                <input tabindex="19" type="text" [(ngModel)]="marker.lng" (change)="changeLatLng()">
+              </div>
+              <div class="btns bottomline text-right">
+                <button tabindex="21" class="btn linesimple" (click)="onClose()">Cancel</button>
+                <button tabindex="20" class="btn editpr btn-primary" (click)="saveCoordinates()">Save</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="modal fade" bsModal #modalBudget="bs-modal" (show)="budgetComponent.setup()">
+  <div class="contentModalScroll">
+    <div class="modal-dialog modal-md">
+      <div class="modal-content">
+        <app-budget (hide)="modalBudget.hide()" (save)="budgetSaved($event)" #budgetComponent></app-budget>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" bsModal #modalLocation="bs-modal">
+  <div class="contentModalScroll">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <app-location (hide)="modalLocation.hide()" #location></app-location>
+      </div>
+    </div>
+  </div>
+</div>

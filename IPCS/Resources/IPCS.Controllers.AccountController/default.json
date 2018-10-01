@@ -1,0 +1,13 @@
+﻿{
+  "errors": {
+    "user_not_found": "The email does not belong to any registered user.",
+    "user_registered": "The email already belongs to a registered account.",
+    "forgotpassword_invalidlink": "Invalid forgot password link",
+    "reactivate_invalidlink": "This link has expired",
+    "email_already_confirmed": "The account is already active."
+  },
+  "emails": {
+    "welcome_src": "\\Emails\\welcome.html",
+    "forgotpassword_src": "\\Emails\\reset.html"
+  }
+}

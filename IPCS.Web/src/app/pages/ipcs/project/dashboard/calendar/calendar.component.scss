@@ -1,0 +1,65 @@
+@import "~scss/variables";
+@import "~scss/mixins";
+table.calendar {
+  width: 50%;
+  @include media-max(430px){
+      transform: scale(0.8) translateX(-15px) translatey(-45px);
+  }
+}
+
+table.calendar tr,
+table.calendar th{
+  border: none;
+}
+
+table.calendar td{
+  border: 1px solid white;
+  text-align: center;
+  background-color: rgba(222, 222, 222, 0.28);
+}
+
+table.calendar td.in{
+  border: 1px solid white;
+  text-align: center;
+  background-color: rgba(82, 152, 235, 0.60);
+}
+
+table.calendar td.current{
+  border: 1px solid white;
+  text-align: center;
+  background-color: #346aa9;
+  color: #FFFFFF;
+}
+
+table.calendar td.out{
+  border: 1px solid white;
+  text-align: center;
+  background-color: rgba(255, 141, 230, 0.33);
+}
+
+span.vertical {
+  transform: rotate(90deg);
+  transform-origin: left top 0px;
+  float: left;
+  width: 100px;
+  text-align: center;
+  font-weight: bold;
+  font-size: 1.1em;
+}
+
+span.title {
+  text-align: center;
+  font-weight: bold;
+  font-size: 1.5em;
+}
+
+.durationLeft {
+  margin-right: 0px;
+  padding-right: 0px;
+  margin-top: 33%;
+}
+
+.durationRight {
+  margin-left: 0px;
+  padding-left: 0px
+}

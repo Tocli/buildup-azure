@@ -1,0 +1,82 @@
+/* You can add global styles to this file, and also import other style files */
+$icon-font-path: '../../node_modules/bootstrap-sass/assets/fonts/bootstrap/';
+
+// Import bootstrap
+@import "normalize";
+@import "../../node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
+@import "../../node_modules/sweetalert2/dist/sweetalert2.css";
+@import "../assets/font-awesome/css/font-awesome.min.css";
+@import "../assets/simple-line-icons/simple-line-icons.min.css";
+@import "../assets/css/global.css";
+@import "../assets/css/inner.css";
+@import "../../node_modules/angular2-busy/build/style/busy.css";
+@import "../app/app.component.scss";
+@import "../../node_modules/angular-calendar/dist/css/angular-calendar.css";
+@import "../../node_modules/intl-tel-input/build/css/intlTelInput.css";
+
+agm-map {
+  height: 100%;
+  width: 100%;
+}
+
+.ellipsis {
+  white-space: nowrap;
+  width: 200px;
+  max-width: 100%;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+table.table-ellipsis {
+  table-layout: fixed;
+}
+
+table.table-ellipsis th {
+  text-align: left !important;
+}
+
+table.table-ellipsis td,
+.ellipsis-col {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  text-align: left;
+}
+
+.issueslists .panel-heading{
+  margin-bottom: 15px;
+}
+
+.bussy-table {
+  position: relative;
+  left: 10px;
+  top: 10px;
+}
+
+.requiredInfoLabel{
+  color: red;
+  font-size: 14px;
+  font-weight: bold;
+  float: left;
+  padding-top: 2.5em !important;
+}
+
+.modal-dialog {
+  margin: auto !important;
+  padding: 10px !important;
+  @include media-max($break-md){
+    padding-bottom: 50px !important;
+  }
+}
+
+.usermenur li div ul li a{
+  padding-top: 0px !important;
+}
+
+.flag-container {
+  z-index: 1059;
+}
+
+.intl-tel-input {
+  width: 100%;
+}

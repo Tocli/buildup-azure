@@ -1,0 +1,73 @@
+@import "~scss/variables";
+@import "~scss/mixins";
+.bodyReport{
+  .dailyDay{
+    padding-top: 25px;
+    padding-bottom: 25px;
+    h5{
+      @include font-size(18px);
+      font-weight: bold;
+      color: $blue;
+    }
+  }
+}
+
+.sweetAlertButtonStyleRed{
+  background-color: rgb(201,48,44);
+  background-color: rgb(201,48,44);
+  background-color: rgb(201,48,44);
+  border: 0;
+  border-radius: 3px;
+  box-shadow: none;
+  color: #fff;
+  cursor: pointer;
+  font-size: 17px;
+  font-weight: 500;
+  margin: 30px 5px 0px 5px;
+  padding: 10px 32px;
+}
+
+.sweetAlertButtonStyleGreen{
+  background-color: rgb(92,184,92);
+  background-color: rgb(92,184,92);
+  background-color: rgb(92,184,92);
+  border: 0;
+  border-radius: 3px;
+  box-shadow: none;
+  color: #fff;
+  cursor: pointer;
+  font-size: 17px;
+  font-weight: 500;
+  margin: 30px 5px 0px 5px;
+  padding: 10px 32px;
+}
+
+.sweetAlertButtonStyleGrey{
+  background-color: rgb(170, 170, 170);
+  background-color: rgb(170, 170, 170);
+  background-color: rgb(170, 170, 170);
+  border: 0;
+  border-radius: 3px;
+  box-shadow: none;
+  color: #fff;
+  cursor: pointer;
+  font-size: 17px;
+  font-weight: 500;
+  margin: 30px 5px 0px 5px;
+  padding: 10px 32px;
+}
+
+.sweetAlertButtonStyleBlue{
+  background-color: rgb(48, 133, 214);
+  background-color: rgb(48, 133, 214);
+  background-color: rgb(48, 133, 214);
+  border: 0;
+  border-radius: 3px;
+  box-shadow: none;
+  color: #fff;
+  cursor: pointer;
+  font-size: 17px;
+  font-weight: 500;
+  margin: 30px 5px 0px 5px;
+  padding: 10px 32px;
+}

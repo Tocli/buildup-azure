@@ -1,0 +1,31 @@
+@import "~scss/variables";
+@import "~scss/mixins";
+@import "~app/pages/security/login/login.component";
+
+.my-profile{
+  @extend .login;
+  min-height: auto;
+  margin-bottom: 50px;
+  &:first-child{
+    margin-top: 100px;
+  }
+}
+.table > caption + thead > tr:first-child > th,
+.table > caption + thead > tr:first-child > td,
+.table > colgroup + thead > tr:first-child > th,
+.table > colgroup + thead > tr:first-child > td,
+.table > thead:first-child > tr:first-child > th,
+.table > thead:first-child > tr:first-child > td {
+  @include media-btn(600px, 1000px){
+    font-size: 12px;
+    word-wrap: break-word;
+  }
+}
+
+.label-text-phoneNumber {
+  color: $blue;
+  @include font-size(12px);
+  @include transform(translateY(-54px));
+}
+
+

@@ -1,0 +1,279 @@
+@import "~scss/variables";
+@import "~scss/mixins";
+
+.login {
+  .image-building{
+    position: fixed;
+    min-height:100vh;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: top right;
+  }
+  /*@include media-min($break-xl){
+    background-position: top right 450px;
+  }
+  @include media-min(1350px){
+    background-position: top left;
+  }
+  @include media-max($break-lg){
+    background-position: left top;
+  }*/
+  label {
+    font-weight: bold;
+    display: block;
+    margin-bottom: 15px;
+    padding-top: 30px;
+    height: 60px;
+    font-weight: bold;
+    @include font-size(14px);
+    ~ .alert.alert-danger{
+      margin-top: -14px !important;
+      padding-right: 0;
+       padding-left: 40px;
+      text-align: right;
+      line-height: 0.9;
+    }
+    .label-text {
+      cursor: text;
+      @include transform(translateY(-34px));
+      @include transition(all 0.3s);
+      z-index:40;
+      pointer-events: none;
+    }
+    input {
+      background-color: transparent;
+      border: 0;
+      margin-bottom: 0;
+      border-bottom: 2px solid $blue;
+      @include transition(all 0.3s);
+      width: 100%;
+      @include font-size(16px);
+      font-weight: normal;
+      z-index: 50;
+      &:focus,
+      &:-webkit-autofill,
+      &:-webkit-autofill:hover,
+      &:-webkit-autofill:focus,
+      &:-webkit-autofill:active,
+      &:active,
+      &:valid,
+      &.ng-dirty{
+        max-width: 100%;
+        ~ .label-text {
+          color: $blue;
+          @include font-size(12px);
+          @include transform(translateY(-54px));
+        }
+      }
+      &:valid + .label-text {
+        @include font-size(12px);
+        @include transform(translateY(-54px));
+      }
+      &.alertInput {
+        border-color: red;
+      }
+      &:active, &:focus {
+        border-color: $blue;
+      }
+    }
+  }
+  .intl-tel-input{
+      ~ .label-text {
+        color: $blue;
+        @include font-size(12px);
+        @include transform(translateY(-54px));
+      }
+  }
+
+  &.registry{
+    label{
+        + .alert.alert-danger{
+          @-moz-document url-prefix(){
+            margin-top: -25px !important;
+          }
+      }
+    }
+  }
+  .options {
+    width: 100%;
+    margin-top: 15px;
+    input {
+      float: left;
+      margin-right: 5px;
+      margin-top: 5px;
+    }
+  }
+  button {
+    width: 100%;
+    margin-top: 30px;
+    height: 40px;
+  }
+  .intrologin {
+    text-align: center;
+    width: 100%;
+    margin: auto;
+    margin-bottom: 30px;
+    margin-top: 10%;
+    @include font-size(17px);
+    color: $gray2;
+    @include media-max($break-lg){
+      margin-top: 20%;
+    }
+  }
+  .baselogin {
+    min-height: 100vh;
+    background: $white;
+    padding-bottom: 50px;
+    @include media-min($break-xl){
+      background: transparent;
+    }
+  }
+  @media screen and (min-width:0\0){
+    label input:focus {
+      max-width: 100%;
+    }
+    label input:focus + .label-text,
+    label input.ng-dirty + .label-text{
+      color: $blue;
+      font-size: 12px;
+      -moz-transform: translateY(-54px);
+      -ms-transform: translateY(-54px);
+      -webkit-transform: translateY(-54px);
+      transform: translateY(-54px);
+    }
+    label input:valid + .label-text {
+      font-size: 12px;
+      @include transform(translateY(-54px));
+    }
+  }
+  @-moz-document url-prefix(){
+    label {
+      display: block;
+      padding-top: 30px;
+      height: 76px;
+    }
+    label .label-text {
+      cursor: text;
+      -moz-transform: translateY(-34px);
+      -ms-transform: translateY(-34px);
+      -webkit-transform: translateY(-34px);
+      transform: translateY(-34px);
+      transition: all 0.3s;
+    }
+    label input {
+      background-color: transparent;
+      border: 0;
+      border-bottom: 2px solid $blueMedium;
+      transition: all 0.3s;
+      width: 100%;
+      @include font-size(16px);
+      font-weight: normal;
+    }
+    label input:focus {
+      max-width: 100%;
+    }
+    label input:focus + .label-text {
+      color: $blue;
+      @include font-size(12px);
+      -moz-transform: translateY(-54px) !important;
+      -ms-transform: translateY(-54px) !important;
+      -webkit-transform: translateY(-54px) !important;
+      transform: translateY(-54px) !important;
+    }
+    label input:valid + .label-text {
+      @include font-size(12px);
+      -moz-transform: translateY(-54px) !important;
+      -ms-transform: translateY(-54px) !important;
+      -webkit-transform: translateY(-54px) !important;
+      transform: translateY(-54px) !important;
+    }
+  }
+}
+.createacc {
+  font-style: italic;
+  text-align: center;
+  width: 100%;
+  margin: auto;
+  margin-top: 20px;
+}
+.privacyTerms{
+  font-style: italic;
+  text-align: center;
+  width: 55%;
+  margin: auto;
+  margin-top: 50px;
+  color: dimgrey;
+  font-size: 12.5px;
+}
+form.loginform {
+  width: 330px;
+  max-width: 90%;
+  margin: auto;
+  position: relative;
+}
+.intrologin img {
+  display: block;
+  text-align: center;
+  margin: auto;
+  margin-bottom: 20px;
+}
+.normaLink, .labelrem{
+  @include font-size(14px);
+}
+.normaLink {
+  color: $blue;
+}
+.whiteLink, .labelrem{
+  @include font-size(14px);
+}
+.whiteLink{
+  color: $white;
+}
+.alert.alert-danger{
+  @include font-size(12px);
+  z-index: 500;
+  right: 0;
+  margin: 0;
+  margin-bottom: 0px;
+  max-width: 92%;
+  position: absolute;
+  padding: 5px;
+  line-height: 1.2;
+  background: transparent;
+  border: none;
+  color: $red;
+  box-shadow: none;
+  &.bottom-20{
+    bottom: -23px;
+  }
+  /*&:after{
+    content: none;
+    position: absolute;
+    z-index: 1;
+    right: 10px;
+    top: -14px;
+    height: 14px;
+    width: 14px;
+    border-left: 7px solid transparent;
+    border-right: 7px solid transparent;
+    border-bottom: 7px solid $red;
+  }*/
+  &.moreRight{
+    right: 23%;
+  }
+  &.moreRight24{
+    right: 24%;
+  }
+  &.moreRightForProjectLocation{
+    right: 0%;
+  }
+  &.moreRightComboWithDays{
+    right: 17%;
+  }
+  &.moreRight5{
+    right: 5%;
+  }
+  &.moreRight3{
+    right: 3%;
+  }
+}

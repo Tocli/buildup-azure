@@ -1,0 +1,95 @@
+<div class="modal-body">
+	<button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="onClose()">
+		<span aria-hidden="true">×</span>
+	</button>
+	<div class="row">
+		<div class="col-lg-12">
+			<div>
+				<h4>{{title}}</h4>
+			</div>
+		</div>
+
+		<form #newCertificationForm="ngForm" (ngSubmit)="saveNewCertification(newCertificationForm.valid)" novalidate="">
+			<div class="col-lg-6">
+				<div class="inputline">
+					<label>Date:</label>
+					<input [options]="inputDateFormat" type="text" required readonly id="date"
+                  name="certificationDate" [(ngModel)]="dateModel" style="float:none" (click)="dpData.toggleCalendar()"
+							    [ngClass]="{'alertInput': !date.valid && (!date.pristine || newCertificationForm.submitted)}"
+                  ngx-mydatepicker
+							#date="ngModel" #dpData="ngx-mydatepicker" (dateChanged)="onDateChange($event)">
+					<button class="input-group-addon" type="button" (click)="dpData.toggleCalendar()"><i class="icon-calendar icons"></i></button>
+          <small class="alert alert-danger" [hidden]="date.valid || (date.pristine && !newCertificationForm.submitted)">
+            This is a required field
+          </small>
+        </div>
+				<div class="inputline">
+					<label>Period From: *</label>
+					<input [options]="inputDateFormat" type="text" id="From" name="certificationPeriodFrom"
+                 [ngClass]="{'alertInput': !from.valid && (!from.pristine || newCertificationForm.submitted)}"
+                 [(ngModel)]="fromModel" required readonly (click)="dpFrom.toggleCalendar()"
+							#from="ngModel"
+							style="float:none" ngx-mydatepicker #dpFrom="ngx-mydatepicker" (dateChanged)="onFromChange($event)">
+					<button class="input-group-addon" type="button" (click)="dpFrom.toggleCalendar()"><i class="icon-calendar icons"></i></button>
+          <small class="alert alert-danger " [hidden]="from.valid || (from.pristine && !newCertificationForm.submitted)">
+            This is a required field
+          </small>
+        </div>
+				<div class="inputline">
+					<label>Status *</label>
+					<select required tabicontentModalScrollndex="14" style="width: 100%" name="status" #status="ngModel"
+                  [ngClass]="{'alertInput': !status.valid && (!status.pristine || newCertificationForm.submitted)}"
+                  [(ngModel)]="newCertification.paid">
+						<option [ngValue]="true">Paid</option>
+						<option [ngValue]="false">Not Paid</option>
+					</select>
+          <small class="alert alert-danger moreRightForProjectLocation" [hidden]="status.valid || (status.pristine && !newCertificationForm.submitted)">
+            This is a required field
+          </small>
+				</div>
+			</div>
+
+			<div class="col-lg-6">
+				<div class="inputline">
+					<label>Gross Certified *</label>
+					<div class="input-group select">
+						<input currencyMask type="tel" class="noMargin" name="certificationGrossCertified" maxlength="18"
+                   [ngClass]="{'alertInput': !grossAmount.valid && (!grossAmount.pristine || newCertificationForm.submitted)}"
+                   currencyMask="" [options]="{ prefix: ' ', thousands: ',', decimal: '.', align: 'left' }"
+										[(ngModel)]="newCertification.grossAmount" required #grossAmount="ngModel" (change) ="onAutofillSelectedValue($event)">
+            <select name="currency" [(ngModel)]="newCertification.currencyId" required
+                    #currencyId="ngModel">
+              <option [value]="currency.id" *ngFor="let currency of currencyList">{{currency.symbol}}</option>
+						</select>
+					</div>
+          <small class="alert alert-danger" [hidden]="(currencyId.valid && grossAmount.valid ) || ((currencyId.pristine || grossAmount.pristine ) && !newCertificationForm.submitted)">
+            This is a required field
+          </small>
+				</div>
+				<div class="inputline">
+					<label>Period To: *</label>
+					<input [options]="inputDateFormat" type="text" id="to" name="certificationPeriodTo"
+                 [ngClass]="{'alertInput': !to.valid && (!to.pristine || newCertificationForm.submitted)}"
+                 [(ngModel)]="toModel" required readonly (click)="dpTo.toggleCalendar()"
+							#to="ngModel"
+							style="float:none" ngx-mydatepicker #dpTo="ngx-mydatepicker" (dateChanged)="onToChange($event)">
+					<button class="input-group-addon" type="button" (click)="dpTo.toggleCalendar()"><i class="icon-calendar icons"></i></button>
+          <small class="alert alert-danger moreRightForProjectLocation" [hidden]="to.valid || (to.pristine && !newCertificationForm.submitted)">
+            This is a required field
+          </small>
+        </div>
+			</div>
+
+			<div class="col-lg-12">
+        <div class="requiredInfoLabel">
+          * Required Information
+        </div>
+				<div class="btns">
+					<button type="button" (click)="onClose()" class="btn linesimple">Cancel</button>
+					<button type="submit" class="btn editpr btn-primary">Save</button>
+				</div>
+			</div>
+
+		</form>
+	</div>
+</div>

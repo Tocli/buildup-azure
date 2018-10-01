@@ -1,0 +1,72 @@
+<div class="fluid-container" style="margin-top: 60px" [ngBusy]="dailyReportViewService.busy">
+  <div id="list-header" class="headerReport minHeight">
+    <div class="container">
+      <app-project-detail-header [projectInformation]="projectInformation" [sectionName]="'Daily Report'" [isNew]="false"></app-project-detail-header>
+      <div class="btns text-right" style="padding-top:0">
+        <div class="btn-group simpleline" dropdown >
+          <button type="button" class="btn drpd">Actions</button>
+          <button dropdownToggle type="button" class="btn dropdown-toggle">
+            <span class="caret"></span>
+            <span class="sr-only">Toggle Dropdown</span>
+          </button>
+          <ul *dropdownMenu class="dropdown-menu" role="menu" >
+            <li role="menuitem"><a class="dropdown-item" [routerLink]="['/build-up','project',projectInformation.id]">Edit</a></li>
+            <li role="menuitem"><a class="dropdown-item" [routerLink]="['/build-up','projects',projectInformation.id,'dashboard']">Dashboard</a></li>
+            <li role="menuitem"><a class="dropdown-item" [routerLink]="['/build-up','projects',projectInformation.id,'changeorder']">Change Orders</a></li>
+            <li role="menuitem"><a class="dropdown-item" [routerLink]="['/build-up', 'projects',projectInformation.id,'certifications']">Certifications</a></li>
+          </ul>
+        </div>
+        <button class="btn editpr btn-primary" (click)="dailyReportViewService.saveOrUpdate()">Save</button>
+        <button class="btn editpr btn-primary" (click)="print()">Export Pdf</button>
+       </div>
+      <app-pages-title [pageTitle]="'Daily Report'"></app-pages-title>
+    </div>
+  </div>
+  <div id="bodyReport" class="container bodyReport">
+    <div class="row">
+      <div class="col-md-6 col-md-push-3 col-sm-12 dailyDay">
+        <div class="row">
+          <div class="col-md-2 col-sm-2 col-xs-2 text-right">
+            <button class="btn btn-link" title="Back To Previous Day" (click)="dailyReportViewService.prevDay()">
+              <span class="fa fa-arrow-left"></span></button>
+          </div>
+          <div class="col-md-8 col-sm-8 col-xs-8 text-center">
+            <h5>{{dailyReportViewService.date | date:'EEE, MMM dd, y'}}</h5>
+            <h5 *ngIf="dailyReportViewService.isDraft" style="color: red" >Draft From: {{dailyReportViewService.draftDate | date:'EEE, MMM dd, y'}}</h5>
+          </div>
+          <div class="col-md-2 col-sm-2 col-xs-2 text-left" *ngIf="dailyReportViewService.nextVisible">
+            <button class="btn btn-link" title="Go To The Next Day" (click)="dailyReportViewService.nextDay()"><span class="fa fa-arrow-right"></span></button>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-12 col-sm-12 dailyReportPanels">
+        <div class="row">
+          <div class="col-md-4">
+            <div class="row">
+              <div class="col-md-12 panel-group"  *ngFor="let at of leftActivities">
+                <app-activity-type [at]="at" ></app-activity-type>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="row">
+              <div class="col-md-12 panel-group" *ngFor="let at of centerActivities">
+                <app-activity-type [at]="at" ></app-activity-type>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="row">
+              <div class="col-md-12 panel-group" *ngFor="let at of rightActivities">
+                <app-activity-type [at]="at" ></app-activity-type>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+  <!--app-can-deactivate-popup #deactivatePopup ></app-can-deactivate-popup-->
+
+</div>

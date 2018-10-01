@@ -1,0 +1,9 @@
+@import "~scss/variables";
+@import "~scss/mixins";
+
+.requiredInfoLabel{
+  color: red;
+  font-size: 12px;
+  font-weight: bold;
+  padding-top: 4em;
+}

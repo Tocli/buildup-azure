@@ -1,0 +1,29 @@
+ <div class="panel panelDashboard issueslists" [ngClass]="{'panel-success': panelColor === 'panel-success', 'panel-danger': panelColor === 'panel-danger',
+  'panel-warning': panelColor === 'panel-warning'}">
+  <div class="panel-heading"><span class="glyphicon glyphicon-exclamation-sign"></span>
+  {{title}} ({{issues?.length}} issues)
+
+    <a   class="pull-right" (click)="viewAllClick()" *ngIf="issues?.length > tempIndex && viewAll === false" style="cursor:pointer;color: white;">View all items</a>
+    <a class="pull-right" (click)="viewAllClick()" *ngIf="issues?.length > tempIndex && viewAll" style="cursor: pointer;color: white;">View less</a> </div>
+
+      <div class="panel-body">
+     <div style="overflow: auto;">
+       <div class="issue" *ngFor="let issue of issues | slice:0:index">
+                  <span>{{issue.createdAt | date: 'MM/dd/y'}} {{issue.createdAt | date: 'jm'}}
+                    <span *ngIf="issue.typeId == 9 || issue.typeId == 11" class="label pull-right" [ngClass]="{'label-warning': true}"
+                          style="width: 60px;color: #FFFFFF;font-size: 10px">May Affect</span>
+                  <span *ngIf="issue.typeId == 10 || issue.typeId == 12" class="label pull-right" [ngClass]="{'label-danger': true}"
+                        style="width: 60px;color: #FFFFFF;font-size: 10px">Affect</span></span>
+         <b>Risk</b> {{issue.description}}<br/>
+         <b>Mitigation</b> {{issue.extraField}}
+       </div>
+     </div>
+     <div class="list-item-panel" *ngIf="issues.length === 0">
+       <small></small>
+       <p>No issues affecting {{title}} were registered.</p>
+     </div>
+     <button class="btn btn-link" (click)="viewAllClick()" *ngIf="issues?.length > tempIndex && viewAll === false" >View all items</button>
+    <button class="btn btn-link" (click)="viewAllClick()" *ngIf="issues?.length > tempIndex && viewAll">View less</button>
+   </div>
+ </div>
+

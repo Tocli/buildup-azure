@@ -1,0 +1,30 @@
+<div [ngBusy]="busy">
+  <div class="container-fluid login">
+    <div class="row">
+      <div class="col-md-7 image-building" style="background-image: url(/img/background-login.jpg)">
+      </div>
+      <div class="col-md-5 col-md-offset-7 baselogin">
+        <div class="intrologin row">
+          <div class="col-lg-12">
+            <img src="/img/download.png" alt="IPCS">
+          </div>
+          <p *ngIf="activating" class="col-lg-12">
+            Activating Account
+          </p>
+          <div *ngIf="!activating">
+            <p *ngIf="isError" class="col-lg-12 text-danger">
+              {{errorString}}
+            </p>
+            <p *ngIf="!isError" class="col-lg-12 text-success">
+              Congratulations! Your BuildUp account has been successfully activated
+            </p>
+          </div>
+          <div class="createacc">
+            <a routerLink="/login" class="normaLink">Start Now</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

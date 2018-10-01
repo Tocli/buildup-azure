@@ -1,0 +1,213 @@
+@import "~scss/variables";
+@import "~scss/mixins";
+.float_btns{
+    position: fixed;
+    z-index: 9999999;
+    text-align: right;
+    min-height: 60px;
+    top: 100px;
+    left: 60%;
+    transition: all 0.5s;
+    @include media-max($break-md){
+      right:10px;
+      left: initial;
+    }
+  .bbtn {
+    background: #073D7D;
+    margin-top: 3px;
+    padding: 10px 35px 0px 20px;
+    height: 42px;
+    border-radius: 0 4px 4px 0;
+    font-size: 13px;
+    transition: all 0.4s;
+    @include media-max($break-md){
+      border-radius: 4px 0 0 4px;
+    }
+  }
+  .bbtn i{
+    color:#fff;
+    position: absolute;
+    left: 20px;
+    top: 15px;
+    font-size: 16px;
+    transition: all 0.2s;
+  }
+  .bbtn.newpr:hover {
+    margin-right: -110px;
+  }
+  .bbtn.srch:hover {
+    margin-right: -90px;
+  }
+  .bbtn.collapser:hover {
+    margin-right: -100px;
+    width:160px;
+  }
+  .bbtn.collapser{
+    transition: all 0.4s;
+    -moz-transition: all 0.4s;
+    -webkit-transition: all 0.4s;
+  }
+  .collapser.rotated i{
+    transform: rotate(180deg);
+    transition: all 0.4s;
+  }
+  .bbtn span{
+    transition: all 0.6s ease;
+    color:#fff;
+    opacity: 0;
+    display: none;
+  }
+  .bbtn:hover span{
+    opacity: 1;
+    display: block;
+  }
+  .bbtn.srch button span{opacity: 0}
+  .bbtn.srch:hover button span{opacity: 1}
+  .bbtn.srch button{
+    color:#fff;
+    -webkit-appearance: none;
+    background: none;
+    border: none;
+    padding: 0;
+    outline: none;
+    font-family: 'Titillium Web', sans-serif;
+  }
+}
+#projects-lists.projectHidden{
+  + .float_btns{
+    left: 0 !important;
+    @include media-max($break-md){
+      right:10px;
+      left: inherit !important;
+    }
+  }
+}
+.contentProjectTable{
+  overflow-x: hidden;
+  overflow-y: scroll;
+  padding: 0 15px;
+  height: calc(100vh - 170px);
+  @include media-max($break-md){
+    height:auto;
+    padding-bottom: 60px;
+    overflow: visible;
+  }
+}
+.bbtn{
+  cursor: pointer;
+  @include media-max($break-sm){
+    padding-right: 20px;
+    width:60px;
+  }
+  &.collapser{
+    i{
+      @include transition(all 500ms ease);
+    }
+    &.rotate{
+      i{
+        @include transform(rotate(180deg));
+      }
+    }
+  }
+}
+.tableTransform{
+  overflow: auto;
+}
+#projects-lists{
+  width: 60%;
+  max-width: 950px;
+  min-height: 100vh;
+  padding-top: 60px;
+  position: fixed;
+  background: #fff;
+  box-shadow: 5px 0 20px #999;
+  @include media-max($break-sm){
+    position: relative;
+  }
+}
+.leftPanel{
+  @media (min-width: 1430px){
+    left: - 850px !important;
+  }
+}
+.imgContentTable{
+  width:76px;
+  height:66px;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  img{
+    width: auto;
+    max-height: 100%;
+  }
+}
+.projects-map {
+  padding-top: 55px !important;
+  position: relative;
+  > input{
+    position: absolute;
+    top: 10px;
+    margin-top: 55px;
+    left: 35px;
+    height: 29px;
+    max-width: 50%;
+    width: 350px;
+    @include font-size(12px);
+    border-radius: 2px;
+    box-shadow: rgba(0, 0, 0, 0.3) 0px 1px 4px -1px;
+    border: 0;
+    &:focus{
+      outline:none;
+      border: 0;
+    }
+  }
+  &.hidePanel{
+    width:100% !important;
+  }
+  /*@media (min-width: 1430px){
+    width: calc(100% - 950px) !important;
+    min-width: 40% !important;
+  }*/
+}
+.orderArrow{
+  position: relative;
+  padding-left: 10px;
+  &:before{
+    content: '';
+    width: 0;
+    height: 0;
+    position: absolute;
+    top: 7px;
+    left:0;
+    border-top: 7px solid $blue;
+    border-left: 4px solid transparent;
+    border-right: 4px solid transparent;
+  }
+  &.invert{
+    &:before{
+      transform: rotate(180deg);
+    }
+  }
+}
+.tableProyectsContainer{
+  position: relative !important;
+  // padding: 0 15px;
+  @include media-max($break-sm){
+    min-width: 0;
+  }
+  .ng-busy-backdrop, .ng-busy, .ng-busy > *, .ng-busy > ng-component > *{
+    position: absolute !important;
+  }
+  .ng-busy-default-sign {
+    top: 10px !important;
+    position: absolute;
+    @-moz-document url-prefix() {
+      left: 50%;
+      margin-left: -75px;
+    }
+  }
+}
+.table tbody tr td:last-child{
+  text-overflow: initial;
+}

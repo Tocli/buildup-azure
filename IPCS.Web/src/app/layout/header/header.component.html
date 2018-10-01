@@ -1,0 +1,56 @@
+﻿<header class="bs-docs-nav navbar navbar-static-top fixed-top bg-primary" id="top">
+    <div class="fluid-container">
+        <div class="navbar-header">
+          <button _ngcontent-lbt-2="" (click)="toggleState()" aria-controls="main-navbar" aria-label="Toggle navigation" class="navbar-toggle collapsed pull-xs-right hidden-sm-up" type="button">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a tabindex="1" class="navbar-brand" routerLink="/" title="Logo">
+                <img src="/img/logo.png" alt="Logo IPCS">
+            </a>
+        </div>
+        <nav class="collapse navbar-collapse" id="main-navbar" [ngClass]="{ 'in': isIn }">
+            <ul class="nav navbar-nav" *ngIf="isLogin">
+                <li class="nav-item">
+                    <a tabindex="2" index="2" routerLink="/build-up/projects">Project List</a>
+                </li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right usermenur" *ngIf="isLogin">
+                <li class="nav-item">
+                    <a tabindex="3" href="javascript:void(0)">{{firsName}} {{lastName}}</a>
+                    <div>
+                        <ul>
+                            <li>
+                                <a routerLink="/build-up/profile">
+                                    <i class="icon-user"></i> My Profile
+                                </a>
+                            </li>
+                          <li>
+                            <a routerLink="/build-up/profile/changepassword">
+                              <i class="icon-lock"></i> Change Password
+                            </a>
+                          </li>
+                            <!--<li>
+                                <a href="http://oa-graphicdesign.azurewebsites.net/IPCS/app_calendar.html">
+                                    <i class="icon-calendar"></i> My Calendar
+                                </a>
+                            </li>-->
+                           <!-- <li>
+                                <a href="http://oa-graphicdesign.azurewebsites.net/IPCS/app_inbox.html">
+                                    <i class="icon-envelope-open"></i> My Inbox
+                                </a>
+                            </li>-->
+                            <li>
+                                <a (click)="logout()" href="javascript:void(0)">
+                                    <i class="icon-key"></i> Log Out
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</header>

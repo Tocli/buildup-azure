@@ -1,0 +1,53 @@
+﻿  <div [ngBusy]="busy" class="container-fluid my-profile" align="center">
+    <div class="row">
+      <div class="col-sm-offset-3 col-sm-6">
+        <h1>Change My Data</h1>
+      </div>
+    </div>
+    <div class="col-sm-offset-4 col-sm-4">
+
+        <form class="form-horizontal" #myProfileForm="ngForm" (ngSubmit)="sendChangeMyData(myProfileForm.valid)"
+              NgIf="active" novalidate>
+
+          <div class="form-group text-left">
+            <label>
+              <input type="text" id="firstname" name="firstname" [(ngModel)]="changeMyDataModel.firstName"
+                     [ngClass]="{'alertInput': !firstname.valid && (!firstname.pristine || myProfileForm.submitted)}"
+                     required minlength="2"  maxlength="64" #firstname="ngModel" reverse="true">
+              <div class="label-text">First Name</div>
+            </label>
+            <small class="alert alert-danger" [hidden]="firstname.valid || (firstname.pristine && !myProfileForm.submitted)">
+              This field needs to be filled
+            </small>
+          </div>
+          <div class="form-group text-left">
+            <label>
+              <input type="text" id="lastname" name="lastname" [(ngModel)]="changeMyDataModel.lastName"
+                     [ngClass]="{'alertInput': !lastname.valid && (!lastname.pristine || myProfileForm.submitted)}"
+                     required minlength="2" maxlength="64" #lastname="ngModel" reverse="true">
+              <div class="label-text">Last Name</div>
+            </label>
+            <small class="alert alert-danger" [hidden]="lastname.valid || (lastname.pristine && !myProfileForm.submitted)">
+              This field needs to be filled
+            </small>
+          </div>
+          <div class="form-group text-left">
+            <label>
+              <input type="tel" id="phonenumber" class="phone" name="phonenumber"
+                     [ngClass]="{'alertInput': !phonenumber.valid && (!phonenumber.pristine || myProfileForm.submitted)}"
+                     [(ngModel)]="changeMyDataModel.phoneNumber"
+                     required minlength="5" maxlength="64" #phonenumber="ngModel"
+                     pattern="^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{1}[-\s\.]?[0-9]{1,63}$"
+                     reverse="true">
+              <div class="label-text-phoneNumber">Phone</div>
+            </label>
+            <small class="alert alert-danger" [hidden]="phonenumber.valid || (phonenumber.pristine && !myProfileForm.submitted)">
+              This field needs to be filled
+            </small>
+          </div>
+          <button type="submit" class="btn btn-primary"> Save </button>
+        </form>
+
+      </div>
+
+  </div>
